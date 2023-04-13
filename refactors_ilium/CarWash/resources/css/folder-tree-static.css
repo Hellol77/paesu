@@ -1,0 +1,39 @@
+
+.dhtmlgoodies_tree a {
+	color: #000;
+}
+
+.dhtmlgoodies_tree {
+	margin: 0px;
+	padding: 0px;
+}
+
+.dhtmlgoodies_tree ul { /* Sub menu groups */
+	margin-left: 20px; /* Left spacing */
+	padding-left: 0px;
+	display: none; /* Initially hide sub nodes */
+}
+
+.dhtmlgoodies_tree li { /* Nodes */
+	list-style-type: none;
+	vertical-align: middle;
+	padding: 2px 0 2px 0;
+}
+
+.dhtmlgoodies_tree li a { /* Node links */
+	color: #000;
+	text-decoration: none;
+	padding-left: 2px;
+}
+
+.dhtmlgoodies_tree li a:hover {
+	color: #FFF;
+	background-color: #88B3BB;
+	text-decoration: none;
+	padding-left: 2px;
+}
+
+.dhtmlgoodies_tree .selected {
+	background-color: #00f;
+	color: #fff;
+}

@@ -1,0 +1,194 @@
+<configuration debug="false" scan="true" scanPeriod="5 seconds">
+
+	<!-- Current date(for file name) -->
+	<timestamp key="byDate" datePattern="yyyy-MM-dd" />
+
+	<!-- [START] LOG PATTERNS -->
+	<!-- 일반적인 FILE LOG PATTERN -->
+	<property name="FILE_LOG_PATTERN" value="%X{req.remoteHost} %d{[yyyy-MM-dd HH:mm:ss.SSS]} [%15.15t] [%-30.30c{1}] %-5p %m%n" />
+
+	<!-- CONSOLE LOG PATTERN -->
+	<property name="CONSOLE_LOG_PATTERN" value="%d{[HH:mm:ss.SSS]} [%-30.30c{1}] %-5p %m%n" />
+
+	<!-- SQL LOG PATTERN -->
+	<property name="SQL_LOG_PATTERN" value="%X{req.remoteHost} %d{[yyyy-MM-dd HH:mm:ss.SSS]} [%15.15t] %-5p %m%n" />
+
+	<!-- 통계 및 Gathering 을 위한 로그 파일 포맷 : SQL,IO,STAT LOG -->
+	<property name="MANAGEMENT_LOG_PATTERN" value="%m%n" />
+
+	<!-- 사용자 IP별 로그 PATTERN -->
+	<property name="BYUSER_LOG_PATTERN" value="%d{[HH:mm:ss.SSS]} [%-30.30c{1}] %-5p %m%n" />
+
+	<!-- I/O FILE LOG PATTERN -->
+	<property name="IO_LOG_PATTERN" value="%d{[yyyy-MM-dd HH:mm:ss.SSS]} %X{req.sessionId} [%-20.20c{1}] %m%n" />
+	<!-- [END] LOG PATTERNS -->
+
+
+	<!-- [START] Appender -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+    <appender name="BY_USER" class="ch.qos.logback.classic.sift.SiftingAppender">
+	   <discriminator>
+	      <key>req.remoteHost</key>
+	      <defaultValue>system</defaultValue>
+	    </discriminator>
+        <sift>
+            <appender name="${req.remoteHost}_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${FWK_LOGPATH}/user/${req.remoteHost}.log</file>
+				<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+					<!-- daily rollover -->
+					<fileNamePattern>${FWK_LOGPATH}/user/rolling/${req.remoteHost}_%d{yyyyMMdd}.log</fileNamePattern>
+				</rollingPolicy>
+	     		<encoder>
+					<pattern>${BYUSER_LOG_PATTERN}</pattern>
+				</encoder>
+            </appender>
+        </sift>
+    </appender>
+
+	<appender name="CRITICALERROR_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${FWK_LOGPATH}/err/CRITICAL.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${FWK_LOGPATH}/etc/rolling/CRITICAL_%d{yyyyMMdd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+	<!-- [END] Appender  -->
+
+	<!-- [START] CORE LOG -->
+
+	<logger name="SYSTEM" level="ERROR" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+
+	<logger name="org.springframework" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+	<logger name="org.apache" level="ERROR" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+	<logger name="org.mybatis" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+	<logger name="net.sf.ehcache" level="ERROR" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+	<logger name="freemarker" level="ERROR" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+
+	<logger name="java.sql" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+
+	<logger name="net.ilium.paesu.dao" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+
+	<logger name="SERVICE" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</logger>
+
+	<logger name="CRITICAL" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CRITICALERROR_APPENDER" />
+		<appender-ref ref="ERROR_APPENDER" />
+	</logger>
+	<!-- [END] CORE LOG -->
+
+	<!-- [START] WEB CHANNEL IN OUT -->
+	<logger name="FRONT_IN" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="WEBIO_APPENDER" />
+	</logger>
+
+	<logger name="FRONT_IN_STRING" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="WEBIO_APPENDER" />
+	</logger>
+ 
+	<logger name="FRONT_OUT" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="WEBIO_APPENDER" />
+	</logger>
+	<!-- [END] WEB CHANNEL IN OUT -->
+
+	<!-- [START] ERROR 로그  -->
+	<logger name="error" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="ERROR_APPENDER" />
+	</logger>
+	<!-- [END] ERROR 로그  -->
+
+
+	<!-- [START] BIZ 로그 -->
+	<logger name="net.ilium.paesu" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="BIZ_APPENDER" />
+	</logger>
+	<!-- [END] BIZ 로그 -->
+
+	<!-- [START] SQL 로그 -->
+	<logger name="SQL_LOG" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="SQL_APPENDER" />
+	</logger>
+	<!-- [END] SQL 로그 -->
+
+    <!-- 화면 logger -->
+	<logger name="jsp" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="BIZ_APPENDER" />
+	</logger>
+
+	<!--  기동 에러 로그 출력 LOGGER -->
+	<logger name="org.springframework.web.servlet.FrameworkServlet" level="DEBUG" additivity="false">
+		<appender-ref ref="CORE_APPENDER" />
+		<appender-ref ref="ERROR_APPENDER" />
+	</logger>
+
+	<!-- Root INFO declaration -->
+	<root level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="BY_USER" />
+		<appender-ref ref="CORE_APPENDER" />
+	</root>
+</configuration>

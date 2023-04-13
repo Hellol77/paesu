@@ -1,0 +1,1652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ilium.paesu.dao.ManagerDao">
+
+	<select id="selectMemberByID" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		select
+			pwd, approval
+		from employee_tbl
+		where id = #{id}
+	</select>
+	
+	<select id="selectEmailByID" parameterType="net.ilium.model.Manager" resultType="String">
+		select
+			email
+		from employee_tbl
+		where id = #{id}
+	</select>
+	
+	<select id="selectEmailByCnameSeq" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		select
+			email
+		from employee_tbl
+		where cmp_seq = #{cmp_seq}
+	</select>
+	
+	<select id="selectVersion"  resultType="java.util.HashMap">
+		SELECT 
+			android, ios
+		FROM 
+			mob_tbl
+	</select>
+	
+	<select id="selectCmpSeqAndEmpSeq" parameterType="String" resultType="java.util.HashMap">
+		    SELECT
+		      cmp_phone
+		      ,emp_seq
+		      ,cmp_seq
+		    FROM
+		      employee_tbl
+		    WHERE
+		      id=#{id}
+		      
+	
+<!-- 	
+		SELECT 
+		 	A.cmp_phone as cmp_phone
+			,B.emp_seq as emp_seq 
+		FROM companyinfo_tbl A
+		INNER JOIN (
+			SELECT
+		    	cmp_phone
+		    	,emp_seq
+		  	FROM employee_tbl
+		  	WHERE id=#{id}
+		) AS B
+		ON 
+			A.cmp_phone = B.cmp_phone
+-->
+	</select>
+	
+	<select id="selectApprovalAndEmpName" parameterType="String" resultType="java.util.HashMap">
+		    SELECT
+		      name,
+		      approval
+		    FROM
+		      employee_tbl
+		    WHERE
+		      id=#{id}
+	</select>
+	
+	<select id="isExistReport" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT
+			count(*) 
+		FROM report_tbl
+		WHERE 
+		  id=#{id}
+		AND 
+		  report_date = #{report_date}
+	</select>
+	
+	<select id="isExistFactReport" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT
+			count(*) 
+		FROM factory_report_tbl
+		WHERE 
+		  id=#{id}
+		AND 
+		  report_date = #{report_date}
+	</select>
+	
+	<select id="isExistFact2ReportForDate" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT
+			count(*) 
+		FROM factory2_report_tbl
+		WHERE 
+		  cmp_seq=#{cmp_seq}
+		AND 
+		  report_date = #{report_date}
+	</select>
+	
+	<select id="isExistFact2Report" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT
+			count(*)
+		FROM factory2_report_tbl
+		WHERE 
+		  cmp_seq=#{cmp_seq}
+	</select>
+	
+	
+	<update id="updateManager">
+		UPDATE report_tbl SET
+		  report_date = #{report_date}
+		  ,weather = #{weather}
+		  ,temperature = #{temperature}
+		  ,starttime = #{starttime}
+		  ,endtime = #{endtime}
+		  ,discharge_sttime = #{discharge_sttime}
+		  ,discharge_endtime = #{discharge_endtime}
+		  ,prevent_sttime = #{prevent_sttime}
+		  ,prevent_endtime = #{prevent_endtime}
+		  ,carwash_num = #{carwash_num}
+		  ,ml1 = #{ml1}
+		  ,wax = #{wax}
+		  ,ml2 = #{ml2}
+		  ,pom = #{pom}
+		  ,ml3 = #{ml3}
+		  ,subtitle1 = #{subtitle1}
+		  ,extra1 = #{extra1}
+		  ,ml4 = #{ml4}
+		  ,subtitle2 = #{subtitle2}
+		  ,extra2 = #{extra2}
+		  ,ml5 = #{ml5}
+		  ,subtitle3 = #{subtitle3}
+		  ,extra3 = #{extra3}
+		  ,ml6 = #{ml6}
+		  ,pre_waterworks = #{pre_waterworks}
+		  ,today_waterworks = #{today_waterworks}
+		  ,use_waterworks = #{use_waterworks}
+		  ,waterworks_time = #{waterworks_time}
+		  ,pre_underwater = #{pre_underwater}
+		  ,today_underwater = #{today_underwater}
+		  ,use_underwater = #{use_underwater}
+		  ,underwater_time = #{underwater_time}
+		  ,pre_genwaste = #{pre_genwaste}
+		  ,today_genwaste = #{today_genwaste}
+		  ,use_genwaste = #{use_genwaste}
+		  ,pre_diswaste = #{pre_diswaste}
+		  ,today_diswaste = #{today_diswaste}
+		  ,use_diswaste = #{use_diswaste}
+		  ,pre_reuse = #{pre_reuse}
+		  ,today_reuse = #{today_reuse}
+		  ,use_reuse = #{use_reuse}
+		  ,startworking_time = #{startworking_time}
+		  ,endworking_time = #{endworking_time}
+		  ,working_use = #{working_use}
+		  ,reading_time = #{reading_time}
+		  ,compute_guidelines = #{compute_guidelines}
+		  ,etc = #{etc}
+		  ,med_name1 = #{med_name1}
+		  ,use_mount1 = #{use_mount1}
+		  ,subuse1 = #{subuse1}
+		  ,buy_mount1 = #{buy_mount1}
+		  ,bal_mount1 = #{bal_mount1}
+		  ,sub_ect1 = #{sub_ect1}
+		  ,med_name2 = #{med_name2}
+		  ,use_mount2 = #{use_mount2}
+		  ,subuse2 = #{subuse2}
+		  ,buy_mount2 = #{buy_mount2}
+		  ,bal_mount2 = #{bal_mount2}
+		  ,sub_ect2 = #{sub_ect2}
+		  ,med_name3 = #{med_name3}
+		  ,use_mount3 = #{use_mount3}
+		  ,subuse3 = #{subuse3}
+		  ,buy_mount3 = #{buy_mount3}
+		  ,bal_mount3 = #{bal_mount3}
+		  ,sub_ect3 = #{sub_ect3}
+		  ,med_name4 = #{med_name4}
+		  ,use_mount4 = #{use_mount4}
+		  ,subuse4 = #{subuse4}
+		  ,buy_mount4 = #{buy_mount4}
+		  ,bal_mount4 = #{bal_mount4}
+		  ,sub_ect4 = #{sub_ect4}
+		  ,sluge_gen = #{sluge_gen}
+		  ,sluge_use = #{sluge_use}
+		  ,sluge_keep = #{sluge_keep}
+		  ,sluge_func = #{sluge_func}
+		  ,sluge_place = #{sluge_place}
+		  ,sluge_selfplace = #{sluge_selfplace}
+		  ,instead_name = #{instead_name}
+		  ,remarks = #{remarks}
+		  ,advise = #{advise}
+		  ,chkop = #{chkop}
+		  ,chkput = #{chkput}
+		  ,chkprevent = #{chkprevent}
+		  ,chkmed = #{chkmed}
+		  ,chksluge = #{chksluge}
+		  ,chkdiswastereuse = #{chkdiswastereuse}
+		  ,chk_diswaste = #{chk_diswaste}
+		WHERE id = #{id}
+		AND
+			report_date=#{report_date}
+	</update>
+	
+	
+	
+	<update id="updateFact2Manager">
+		UPDATE factory2_report_tbl SET
+		  starttime = #{starttime}
+		  ,endtime = #{endtime}
+		  ,pre_waterworks = #{pre_waterworks}
+		  ,today_waterworks = #{today_waterworks}
+		  ,use_waterworks = #{use_waterworks}
+		  ,pre_genwaste = #{pre_genwaste}
+		  ,today_genwaste = #{today_genwaste}
+		  ,use_genwaste = #{use_genwaste}
+		  ,subtitle1 = #{subtitle1}
+		  ,ml1 = #{ml1}
+		  ,subtitle2 = #{subtitle2}
+		  ,ml2 = #{ml2}
+		  ,subtitle3 = #{subtitle3}
+		  ,ml3 = #{ml3}
+		  ,subtitle4 = #{subtitle4}
+		  ,ml4 = #{ml4}
+		  ,instead_mount = #{instead_mount}
+		  ,instead_number = #{instead_number}
+		  ,instead_name = #{instead_name}
+		  ,keep_mount = #{keep_mount}
+		  ,etc = #{etc}
+		  ,owner_sig = #{owner_sig}
+		  ,staff_sig = #{staff_sig}
+		WHERE cmp_seq = #{cmp_seq}
+		AND
+			report_date=#{report_date}
+	</update>
+	
+	<insert id="insertManager">
+		INSERT INTO report_tbl (
+		   id
+		  ,emp_seq
+		  ,report_date
+		  ,weather
+		  ,temperature
+		  ,starttime
+		  ,endtime
+		  ,discharge_sttime
+		  ,discharge_endtime
+		  ,prevent_sttime
+		  ,prevent_endtime
+		  ,carwash_num
+		  ,detergent
+		  ,ml1
+		  ,wax
+		  ,ml2
+		  ,pom
+		  ,ml3
+		  ,subtitle1
+		  ,extra1
+		  ,ml4
+		  ,subtitle2
+		  ,extra2
+		  ,ml5
+		  ,subtitle3
+		  ,extra3
+		  ,ml6
+		  ,pre_waterworks
+		  ,today_waterworks
+		  ,use_waterworks
+		  ,waterworks_time
+		  ,pre_underwater
+		  ,today_underwater
+		  ,use_underwater
+		  ,underwater_time
+		  ,pre_genwaste
+		  ,today_genwaste
+		  ,use_genwaste
+		  ,pre_diswaste
+		  ,today_diswaste
+		  ,use_diswaste
+		  ,pre_reuse
+		  ,today_reuse
+		  ,use_reuse
+		  ,startworking_time
+		  ,endworking_time
+		  ,working_use
+		  ,reading_time
+		  ,compute_guidelines
+		  ,etc
+		  ,med_name1
+		  ,use_mount1
+		  ,subuse1
+		  ,buy_mount1
+		  ,bal_mount1
+		  ,sub_ect1
+		  ,med_name2
+		  ,use_mount2
+		  ,subuse2
+		  ,buy_mount2
+		  ,bal_mount2
+		  ,sub_ect2
+		  ,med_name3
+		  ,use_mount3
+		  ,subuse3
+		  ,buy_mount3
+		  ,bal_mount3
+		  ,sub_ect3
+		  ,med_name4
+		  ,use_mount4
+		  ,subuse4
+		  ,buy_mount4
+		  ,bal_mount4
+		  ,sub_ect4
+		  ,sluge_gen
+		  ,sluge_use
+		  ,sluge_keep
+		  ,sluge_func
+		  ,sluge_place
+		  ,sluge_selfplace
+		  ,instead_name
+		  ,remarks
+		  ,advise
+		  ,chkop
+		  ,chkput
+		  ,chkprevent
+		  ,chkmed
+		  ,chksluge
+		  ,chkdiswastereuse
+		  ,chk_diswaste
+		) VALUES (
+		   #{id}
+		  ,#{emp_seq}
+		  ,#{report_date}
+		  ,#{weather}
+		  ,#{temperature}
+		  ,#{starttime}
+		  ,#{endtime}
+		  ,#{discharge_sttime}
+		  ,#{discharge_endtime}
+		  ,#{prevent_sttime}
+		  ,#{prevent_endtime}
+		  ,#{carwash_num}
+          ,#{detergent}
+		  ,#{ml1}
+		  ,#{wax}
+		  ,#{ml2}
+		  ,#{pom}
+		  ,#{ml3}
+		  ,#{subtitle1}
+		  ,#{extra1}
+		  ,#{ml4}
+		  ,#{subtitle2}
+		  ,#{extra2}
+		  ,#{ml5}
+		  ,#{subtitle3}
+		  ,#{extra3}
+		  ,#{ml6}
+		  ,#{pre_waterworks}
+		  ,#{today_waterworks}
+		  ,#{use_waterworks}
+		  ,date_format(now(), '%H:%i')
+		  ,#{pre_underwater}
+		  ,#{today_underwater}
+		  ,#{use_underwater}
+		  ,date_format(now(), '%H:%i')
+		  ,#{pre_genwaste}
+		  ,#{today_genwaste}
+		  ,#{use_genwaste}
+		  ,#{pre_diswaste}
+		  ,#{today_diswaste}
+		  ,#{use_diswaste}
+		  ,#{pre_reuse}
+		  ,#{today_reuse}
+		  ,#{use_reuse}
+		  ,#{startworking_time}
+		  ,#{endworking_time}
+		  ,#{working_use}
+		  ,date_format(now(), '%H:%i')
+		  ,#{compute_guidelines}
+		  ,#{etc}
+		  ,#{med_name1}
+		  ,#{use_mount1}
+		  ,#{subuse1}
+		  ,#{buy_mount1}
+		  ,#{bal_mount1}
+		  ,#{sub_ect1}
+		  ,#{med_name2}
+		  ,#{use_mount2}
+		  ,#{subuse2}
+		  ,#{buy_mount2}
+		  ,#{bal_mount2}
+		  ,#{sub_ect2}
+		  ,#{med_name3}
+		  ,#{use_mount3}
+		  ,#{subuse3}
+		  ,#{buy_mount3}
+		  ,#{bal_mount3}
+		  ,#{sub_ect3}
+		  ,#{med_name4}
+		  ,#{use_mount4}
+		  ,#{subuse4}
+		  ,#{buy_mount4}
+		  ,#{bal_mount4}
+		  ,#{sub_ect4}
+		  ,#{sluge_gen}
+		  ,#{sluge_use}
+		  ,#{sluge_keep}
+		  ,#{sluge_func}
+		  ,#{sluge_place}
+		  ,#{sluge_selfplace}
+		  ,#{instead_name}
+		  ,#{remarks}
+		  ,#{advise}
+		  ,#{chkop}
+		  ,#{chkput}
+		  ,#{chkprevent}
+		  ,#{chkmed}
+		  ,#{chksluge}
+		  ,#{chkdiswastereuse}
+		  ,#{chk_diswaste}
+		)
+	</insert>
+	
+	<insert id="insertFact2Manager">
+		INSERT INTO factory2_report_tbl (
+		   id
+		  ,cmp_seq
+		  ,report_date
+		  ,starttime
+		  ,endtime
+		  ,pre_waterworks
+		  ,today_waterworks
+		  ,use_waterworks
+		  ,pre_genwaste
+		  ,today_genwaste
+		  ,use_genwaste
+		  ,subtitle1		  
+		  ,ml1
+		  ,subtitle2
+		  ,ml2
+		  ,subtitle3
+		  ,ml3
+		  ,subtitle4
+		  ,ml4
+		  ,instead_mount
+		  ,instead_number
+		  ,instead_name
+		  ,keep_mount
+		  ,etc
+		  ,owner_sig
+		  ,staff_sig
+		) VALUES (
+		   #{id}
+		  ,#{cmp_seq}
+		  ,#{report_date}
+		  ,#{starttime}
+		  ,#{endtime}
+		  ,#{pre_waterworks}
+		  ,#{today_waterworks}
+		  ,#{use_waterworks}
+		  ,#{pre_genwaste}
+		  ,#{today_genwaste}
+		  ,#{use_genwaste}
+		  ,#{subtitle1}  
+		  ,#{ml1}
+		  ,#{subtitle2}
+		  ,#{ml2}
+		  ,#{subtitle3}
+		  ,#{ml3}
+		  ,#{subtitle4}
+		  ,#{ml4}
+		  ,#{instead_mount}
+		  ,#{instead_number}
+		  ,#{instead_name}
+		  ,#{keep_mount}
+		  ,#{etc}
+		  ,#{owner_sig}
+		  ,#{staff_sig}
+		)
+	</insert>
+	
+	
+	<insert id="insertFactManager">
+		INSERT INTO factory_report_tbl (
+		   id
+		   ,emp_seq
+		   ,report_date
+		   ,weather
+		   ,temperature
+		   ,starttime
+		   ,endtime
+		   ,pre_waterworks1
+		   ,today_waterworks1
+		   ,use_waterworks1
+		   ,waterworks1_time
+		   ,pre_waterworks2
+		   ,today_waterworks2
+		   ,use_waterworks2
+		   ,waterworks2_time
+		   ,pre_factorywater1
+		   ,today_factorywater1
+		   ,use_factorywater1
+		   ,factorywater1_time
+		   ,pre_factorywater2
+		   ,today_factorywater2
+		   ,use_factorywater2
+		   ,factorywater2_time
+		   ,pre_underwater1
+		   ,today_underwater1
+		   ,use_underwater1
+		   ,underwater_time1
+		   ,pre_underwater2
+		   ,today_underwater2
+		   ,use_underwater2
+		   ,underwater_time2
+		   ,pre_riverwater1
+		   ,today_riverwater1
+		   ,use_riverwater1
+		   ,riverwater_time1
+		   ,pre_riverwater2
+		   ,today_riverwater2
+		   ,use_riverwater2
+		   ,riverwater_time2
+		   ,pre_etc1
+		   ,today_etc1
+		   ,use_etc1
+		   ,etc_time1
+		   ,pre_etc2
+		   ,today_etc2
+		   ,use_etc2
+		   ,etc_time2
+		   ,pre_genwaste
+		   ,today_genwaste
+		   ,use_genwaste
+		   ,pre_diswaste
+		   ,today_diswaste
+		   ,use_diswaste
+		   ,pre_coolwater
+		   ,today_coolwater
+		   ,use_coolwater
+		   ,pre_evaporation
+		   ,today_evaporation
+		   ,use_evaporation
+		   ,pre_reuse
+		   ,today_reuse
+		   ,use_reuse
+		   ,pre_living
+		   ,today_living
+		   ,use_living
+		   ,sluge1_gen
+		   ,sluge1_use
+		   ,sluge1_keep
+		   ,sluge1_func
+		   ,sluge1_place
+		   ,sluge2_gen
+		   ,sluge2_use
+		   ,sluge2_keep
+		   ,sluge2_func
+		   ,sluge2_place
+		   ,subtitle1
+		   ,ml1
+		   ,subtitle2
+		   ,ml2
+		   ,subtitle3
+		   ,ml3
+		   ,subtitle4
+		   ,ml4
+		   ,subtitle5
+		   ,ml5
+		   ,subtitle6
+		   ,ml6
+		   ,subtitle7
+		   ,ml7
+		   ,subtitle8
+		   ,ml8
+		   ,med_name1
+		   ,use_mount1
+		   ,subuse1
+		   ,buy_mount1
+		   ,bal_mount1
+		   ,sub_ect1
+		   ,med_name2
+		   ,use_mount2
+		   ,subuse2
+		   ,buy_mount2
+		   ,bal_mount2
+		   ,sub_ect2
+		   ,med_name3
+		   ,use_mount3
+		   ,subuse3
+		   ,buy_mount3
+		   ,bal_mount3
+		   ,sub_ect3
+		   ,med_name4
+		   ,use_mount4
+		   ,subuse4
+		   ,buy_mount4
+		   ,bal_mount4
+		   ,sub_ect4
+		   ,ph_mount
+		   ,suen_mount
+		   ,do_mount
+		   ,sv30_mount
+		   ,mlss_mount
+		   ,svi_mount
+		   ,pocgi_time
+		   ,microbe_status
+		   ,ph_wastewater
+		   ,ph_effluent
+		   ,bod_wastewater
+		   ,bod_effluent
+		   ,toc_wastewater
+		   ,toc_effluent
+		   ,cod_wastewater
+		   ,cod_effluent
+		   ,ss_wastewater
+		   ,ss_effluent
+		   ,nhex_wastewater
+		   ,nhex_effluent
+		   ,cn_wastewater
+		   ,cn_effluent
+		   ,cu_wastewater
+		   ,cu_effluent
+		   ,etc1_title
+		   ,etc1_wastewater
+		   ,etc1_effluent
+		   ,etc2_title
+		   ,etc2_wastewater
+		   ,etc2_effluent
+		   ,etc3_title
+		   ,etc3_wastewater
+		   ,etc3_effluent
+		   ,search1_date
+		   ,search2_date
+		   ,ph_cleanstate
+		   ,ph_siryostate
+		   ,ph_injectstate
+		   ,ph_sensor
+		   ,ph_change
+		   ,bod_cleanstate
+		   ,bod_siryostate
+		   ,bod_injectstate
+		   ,bod_sensor
+		   ,bod_change
+		   ,toc_cleanstate
+		   ,toc_siryostate
+		   ,toc_injectstate
+		   ,toc_sensor
+		   ,toc_change
+		   ,cod_cleanstate
+		   ,cod_siryostate
+		   ,cod_injectstate
+		   ,cod_sensor
+		   ,cod_change
+		   ,ss_cleanstate
+		   ,ss_siryostate
+		   ,ss_injectstate
+		   ,ss_sensor
+		   ,ss_change
+		   ,tn_cleanstate
+		   ,tn_siryostate
+		   ,tn_injectstate
+		   ,tn_sensor
+		   ,tn_change
+		   ,tp_cleanstate
+		   ,tp_siryostate
+		   ,tp_injectstate
+		   ,tp_sensor
+		   ,tp_change
+		   ,flowmeter_cleanstate
+		   ,flowmeter_siryostate
+		   ,flowmeter_injectstate
+		   ,flowmeter_sensor
+		   ,flowmeter_change
+		   ,siryogroup_cleanstate
+		   ,siryogroup_siryostate
+		   ,siryogroup_injectstate
+		   ,siryogroup_sensor
+		   ,siryogroup_change
+		) VALUES (
+		   #{id}
+		   ,#{emp_seq}
+		   ,#{report_date}
+		   ,#{weather}
+		   ,#{temperature}
+		   ,#{starttime}
+		   ,#{endtime}
+		   ,#{pre_waterworks1}
+		   ,#{today_waterworks1}
+		   ,#{use_waterworks1}
+		   ,#{waterworks1_time}
+		   ,#{pre_waterworks2}
+		   ,#{today_waterworks2}
+		   ,#{use_waterworks2}
+		   ,#{waterworks2_time}
+		   ,#{pre_factorywater1}
+		   ,#{today_factorywater1}
+		   ,#{use_factorywater1}
+		   ,#{factorywater1_time}
+		   ,#{pre_factorywater2}
+		   ,#{today_factorywater2}
+		   ,#{use_factorywater2}
+		   ,#{factorywater2_time}
+		   ,#{pre_underwater1}
+		   ,#{today_underwater1}
+		   ,#{use_underwater1}
+		   ,#{underwater_time1}
+		   ,#{pre_underwater2}
+		   ,#{today_underwater2}
+		   ,#{use_underwater2}
+		   ,#{underwater_time2}
+		   ,#{pre_riverwater1}
+		   ,#{today_riverwater1}
+		   ,#{use_riverwater1}
+		   ,#{riverwater_time1}
+		   ,#{pre_riverwater2}
+		   ,#{today_riverwater2}
+		   ,#{use_riverwater2}
+		   ,#{riverwater_time2}
+		   ,#{pre_etc1}
+		   ,#{today_etc1}
+		   ,#{use_etc1}
+		   ,#{etc_time1}
+		   ,#{pre_etc2}
+		   ,#{today_etc2}
+		   ,#{use_etc2}
+		   ,#{etc_time2}
+		   ,#{pre_genwaste}
+		   ,#{today_genwaste}
+		   ,#{use_genwaste}
+		   ,#{pre_diswaste}
+		   ,#{today_diswaste}
+		   ,#{use_diswaste}
+		   ,#{pre_coolwater}
+		   ,#{today_coolwater}
+		   ,#{use_coolwater}
+		   ,#{pre_evaporation}
+		   ,#{today_evaporation}
+		   ,#{use_evaporation}
+		   ,#{pre_reuse}
+		   ,#{today_reuse}
+		   ,#{use_reuse}
+		   ,#{pre_living}
+		   ,#{today_living}
+		   ,#{use_living}
+		   ,#{sluge1_gen}
+		   ,#{sluge1_use}
+		   ,#{sluge1_keep}
+		   ,#{sluge1_func}
+		   ,#{sluge1_place}
+		   ,#{sluge2_gen}
+		   ,#{sluge2_use}
+		   ,#{sluge2_keep}
+		   ,#{sluge2_func}
+		   ,#{sluge2_place}
+		   ,#{subtitle1}
+		   ,#{ml1}
+		   ,#{subtitle2}
+		   ,#{ml2}
+		   ,#{subtitle3}
+		   ,#{ml3}
+		   ,#{subtitle4}
+		   ,#{ml4}
+		   ,#{subtitle5}
+		   ,#{ml5}
+		   ,#{subtitle6}
+		   ,#{ml6}
+		   ,#{subtitle7}
+		   ,#{ml7}
+		   ,#{subtitle8}
+		   ,#{ml8}
+		   ,#{med_name1}
+		   ,#{use_mount1}
+		   ,#{subuse1}
+		   ,#{buy_mount1}
+		   ,#{bal_mount1}
+		   ,#{sub_ect1}
+		   ,#{med_name2}
+		   ,#{use_mount2}
+		   ,#{subuse2}
+		   ,#{buy_mount2}
+		   ,#{bal_mount2}
+		   ,#{sub_ect2}
+		   ,#{med_name3}
+		   ,#{use_mount3}
+		   ,#{subuse3}
+		   ,#{buy_mount3}
+		   ,#{bal_mount3}
+		   ,#{sub_ect3}
+		   ,#{med_name4}
+		   ,#{use_mount4}
+		   ,#{subuse4}
+		   ,#{buy_mount4}
+		   ,#{bal_mount4}
+		   ,#{sub_ect4}
+		   ,#{ph_mount}
+		   ,#{suen_mount}
+		   ,#{do_mount}
+		   ,#{sv30_mount}
+		   ,#{mlss_mount}
+		   ,#{svi_mount}
+		   ,#{pocgi_time}
+		   ,#{microbe_status}
+		   ,#{ph_wastewater}
+		   ,#{ph_effluent}
+		   ,#{bod_wastewater}
+		   ,#{bod_effluent}
+		   ,#{toc_wastewater}
+		   ,#{toc_effluent}
+		   ,#{cod_wastewater}
+		   ,#{cod_effluent}
+		   ,#{ss_wastewater}
+		   ,#{ss_effluent}
+		   ,#{nhex_wastewater}
+		   ,#{nhex_effluent}
+		   ,#{cn_wastewater}
+		   ,#{cn_effluent}
+		   ,#{cu_wastewater}
+		   ,#{cu_effluent}
+		   ,#{etc1_title}
+		   ,#{etc1_wastewater}
+		   ,#{etc1_effluent}
+		   ,#{etc2_title}
+		   ,#{etc2_wastewater}
+		   ,#{etc2_effluent}
+		   ,#{etc3_title}
+		   ,#{etc3_wastewater}
+		   ,#{etc3_effluent}
+		   ,#{search1_date}
+		   ,#{search2_date}
+		   ,#{ph_cleanstate}
+		   ,#{ph_siryostate}
+		   ,#{ph_injectstate}
+		   ,#{ph_sensor}
+		   ,#{ph_change}
+		   ,#{bod_cleanstate}
+		   ,#{bod_siryostate}
+		   ,#{bod_injectstate}
+		   ,#{bod_sensor}
+		   ,#{bod_change}
+		   ,#{toc_cleanstate}
+		   ,#{toc_siryostate}
+		   ,#{toc_injectstate}
+		   ,#{toc_sensor}
+		   ,#{toc_change}
+		   ,#{cod_cleanstate}
+		   ,#{cod_siryostate}
+		   ,#{cod_injectstate}
+		   ,#{cod_sensor}
+		   ,#{cod_change}
+		   ,#{ss_cleanstate}
+		   ,#{ss_siryostate}
+		   ,#{ss_injectstate}
+		   ,#{ss_sensor}
+		   ,#{ss_change}
+		   ,#{tn_cleanstate}
+		   ,#{tn_siryostate}
+		   ,#{tn_injectstate}
+		   ,#{tn_sensor}
+		   ,#{tn_change}
+		   ,#{tp_cleanstate}
+		   ,#{tp_siryostate}
+		   ,#{tp_injectstate}
+		   ,#{tp_sensor}
+		   ,#{tp_change}
+		   ,#{flowmeter_cleanstate}
+		   ,#{flowmeter_siryostate}
+		   ,#{flowmeter_injectstate}
+		   ,#{flowmeter_sensor}
+		   ,#{flowmeter_change}
+		   ,#{siryogroup_cleanstate}
+		   ,#{siryogroup_siryostate}
+		   ,#{siryogroup_injectstate}
+		   ,#{siryogroup_sensor}
+		   ,#{siryogroup_change}
+		)
+	</insert>
+	
+	
+	
+	
+	<select id="selectPrevData" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT 
+  		report_date
+		  ,starttime
+		  ,endtime
+		  ,discharge_sttime
+		  ,discharge_endtime
+		  ,prevent_sttime
+		  ,prevent_endtime
+		  ,pre_waterworks
+		  ,today_waterworks
+		  ,use_waterworks
+		  ,waterworks_time
+		  ,pre_underwater
+		  ,today_underwater
+		  ,use_underwater
+		  ,underwater_time
+		  ,pre_diswaste
+		  ,today_diswaste
+		  ,use_diswaste
+		  ,startworking_time
+		  ,endworking_time
+		  ,working_use
+		  ,reading_time
+		  ,compute_guidelines
+		  ,etc
+		  ,advise
+		  ,chkop
+		  ,chkput
+		  ,chkprevent
+		  ,chkmed
+		  ,chksluge
+		  ,chkdiswastereuse
+		  ,chk_diswaste
+	  FROM
+	    report_tbl A
+	  INNER JOIN
+	    (SELECT
+	    	cmp_phone
+	    	,emp_seq
+	    	,id
+	    FROM employee_tbl
+	    	) AS B
+	    ON 
+			A.id = B.id
+	  WHERE
+	  <![CDATA[ 
+	  	A.report_date < #{report_date}
+	  	AND B.id = #{id}
+	  ]]>
+	  ORDER BY report_date desc LIMIT 1;
+	</select>
+	
+	<insert id="insertFromPrevReport" parameterType="java.util.HashMap">
+		INSERT INTO report_tbl (
+		  id, emp_seq, report_date, weather, temperature, starttime, endtime, discharge_sttime, discharge_endtime, prevent_sttime
+		  ,prevent_endtime, carwash_num, detergent, ml1, wax, ml2, pom, ml3, subtitle1, extra1, ml4, subtitle2, extra2
+		  ,ml5, subtitle3, extra3, ml6, pre_waterworks, today_waterworks, use_waterworks, waterworks_time, pre_underwater
+		  ,today_underwater, use_underwater, underwater_time, pre_genwaste, today_genwaste, use_genwaste, chk_diswaste, pre_diswaste
+		  ,today_diswaste, use_diswaste, pre_reuse, today_reuse, use_reuse, startworking_time, endworking_time, working_use
+		  ,reading_time, compute_guidelines, etc, med_name1, use_mount1, subuse1, buy_mount1, bal_mount1, sub_ect1, med_name2
+		  ,use_mount2, subuse2, buy_mount2, bal_mount2, sub_ect2, med_name3, use_mount3, subuse3, buy_mount3, bal_mount3
+		  ,sub_ect3, med_name4, use_mount4, subuse4, buy_mount4, bal_mount4, sub_ect4, sluge_gen, sluge_use, sluge_keep
+		  ,sluge_func, sluge_place, sluge_selfplace, instead_name, remarks, advise, chkop, chkput
+		  ,chkprevent, chkmed, chksluge, chkdiswastereuse, chkholiday
+		) SELECT
+		  id, emp_seq, #{report_date} as report_date, weather, temperature, starttime, endtime, discharge_sttime, discharge_endtime, prevent_sttime
+		  ,prevent_endtime, carwash_num, detergent, ml1, wax, ml2, pom, ml3, subtitle1, extra1, ml4, subtitle2, extra2
+		  ,ml5, subtitle3, extra3, ml6, pre_waterworks, today_waterworks, 0, waterworks_time, pre_underwater
+		  ,today_underwater, 0, underwater_time, pre_genwaste, today_genwaste, 0, chk_diswaste, pre_diswaste
+		  ,today_diswaste, 0, pre_reuse, today_reuse, 0, startworking_time, endworking_time, 0
+		  ,reading_time, compute_guidelines, etc, med_name1, use_mount1, subuse1, buy_mount1, bal_mount1, sub_ect1, med_name2
+		  ,use_mount2, subuse2, buy_mount2, bal_mount2, sub_ect2, med_name3, use_mount3, subuse3, buy_mount3, bal_mount3
+		  ,sub_ect3, med_name4, use_mount4, subuse4, buy_mount4, bal_mount4, sub_ect4, sluge_gen, sluge_use, sluge_keep
+		  ,sluge_func, sluge_place, sluge_selfplace, instead_name, remarks, advise, chkop, chkput
+		  ,chkprevent, chkmed, chksluge, chkdiswastereuse, 'on' as chkholiday
+	  FROM
+	    report_tbl
+	  
+	  WHERE
+	  	report_date = #{prev_date}
+	  	AND id = #{id}
+	</insert>
+	
+	<insert id="insertFromPrevFactReport" parameterType="java.util.HashMap">
+		INSERT INTO factory_report_tbl (
+			id, emp_seq, report_date, weather, temperature, starttime, endtime, pre_waterworks1, today_waterworks1, use_waterworks1, waterworks1_time,
+			pre_waterworks2, today_waterworks2, use_waterworks2, waterworks2_time, pre_factorywater1, today_factorywater1, use_factorywater1, 
+			factorywater1_time, pre_factorywater2, today_factorywater2, use_factorywater2, factorywater2_time, pre_underwater1, today_underwater1, 
+			use_underwater1, underwater_time1, pre_underwater2, today_underwater2, use_underwater2, underwater_time2, pre_riverwater1, 
+			today_riverwater1, use_riverwater1, riverwater_time1, pre_riverwater2, today_riverwater2, use_riverwater2, riverwater_time2,
+			pre_etc1, today_etc1, use_etc1, etc_time1, pre_etc2, today_etc2, use_etc2, etc_time2, pre_genwaste, today_genwaste, use_genwaste, 
+			pre_diswaste, today_diswaste, use_diswaste, pre_coolwater, today_coolwater, use_coolwater, pre_evaporation, today_evaporation, 
+			use_evaporation, pre_reuse, today_reuse, use_reuse, pre_living, today_living, use_living, sluge1_gen, sluge1_use, sluge1_keep, 
+			sluge1_func, sluge1_place, sluge2_gen, sluge2_use, sluge2_keep, sluge2_func, sluge2_place, subtitle1, ml1, subtitle2, ml2, subtitle3, ml3, 
+			subtitle4, ml4, subtitle5, ml5, subtitle6, ml6, med_name1, use_mount1, subuse1, buy_mount1, bal_mount1, sub_ect1, 
+			med_name2, use_mount2, subuse2, buy_mount2, bal_mount2, sub_ect2, med_name3, use_mount3, subuse3, buy_mount3, bal_mount3, sub_ect3,
+			med_name4, use_mount4, subuse4, buy_mount4, bal_mount4, sub_ect4, ph_mount, suen_mount, do_mount, sv30_mount, mlss_mount, svi_mount,
+			pocgi_time, microbe_status, ph_wastewater, ph_effluent, bod_wastewater, bod_effluent, toc_wastewater, toc_effluent, cod_wastewater, 
+			cod_effluent, ss_wastewater, ss_effluent, nhex_wastewater, nhex_effluent, cn_wastewater, cn_effluent, cu_wastewater, cu_effluent,
+			etc1_title, etc1_wastewater, etc1_effluent, etc2_title, etc2_wastewater, etc2_effluent, etc3_title, etc3_wastewater, etc3_effluent, 
+			search1_date, search2_date, ph_cleanstate, ph_siryostate, ph_injectstate, ph_sensor, ph_change, bod_cleanstate, bod_siryostate, 
+			bod_injectstate, bod_sensor,  bod_change, toc_cleanstate, toc_siryostate, toc_injectstate, toc_sensor, toc_change,
+			cod_cleanstate, cod_siryostate, cod_injectstate, cod_sensor, cod_change, ss_cleanstate, ss_siryostate, ss_injectstate, 
+			ss_sensor, ss_change, tn_cleanstate, tn_siryostate, tn_injectstate, tn_sensor, tn_change, tp_cleanstate, tp_siryostate, tp_injectstate, 
+			tp_sensor, tp_change, flowmeter_cleanstate, flowmeter_siryostate, flowmeter_injectstate, flowmeter_sensor, flowmeter_change,
+			siryogroup_cleanstate, siryogroup_siryostate, siryogroup_injectstate, siryogroup_sensor, siryogroup_change
+		) SELECT
+		  id, emp_seq, #{report_date} as report_date, weather, temperature, starttime, endtime, pre_waterworks1, today_waterworks1, use_waterworks1, waterworks1_time,
+			pre_waterworks2, today_waterworks2, use_waterworks2, waterworks2_time, pre_factorywater1, today_factorywater1, use_factorywater1, 
+			factorywater1_time, pre_factorywater2, today_factorywater2, use_factorywater2, factorywater2_time, pre_underwater1, today_underwater1, 
+			use_underwater1, underwater_time1, pre_underwater2, today_underwater2, use_underwater2, underwater_time2, pre_riverwater1, 
+			today_riverwater1, use_riverwater1, riverwater_time1, pre_riverwater2, today_riverwater2, use_riverwater2, riverwater_time2,
+			pre_etc1, today_etc1, use_etc1, etc_time1, pre_etc2, today_etc2, use_etc2, etc_time2, pre_genwaste, today_genwaste, use_genwaste, 
+			pre_diswaste, today_diswaste, use_diswaste, pre_coolwater, today_coolwater, use_coolwater, pre_evaporation, today_evaporation, 
+			use_evaporation, pre_reuse, today_reuse, use_reuse, pre_living, today_living, use_living, sluge1_gen, sluge1_use, sluge1_keep, 
+			sluge1_func, sluge1_place, sluge2_gen, sluge2_use, sluge2_keep, sluge2_func, sluge2_place, subtitle1, ml1, subtitle2, ml2, subtitle3, ml3, 
+			subtitle4, ml4, subtitle5, ml5, subtitle6, ml6, med_name1, use_mount1, subuse1, buy_mount1, bal_mount1, sub_ect1, 
+			med_name2, use_mount2, subuse2, buy_mount2, bal_mount2, sub_ect2, med_name3, use_mount3, subuse3, buy_mount3, bal_mount3, sub_ect3,
+			med_name4, use_mount4, subuse4, buy_mount4, bal_mount4, sub_ect4, ph_mount, suen_mount, do_mount, sv30_mount, mlss_mount, svi_mount,
+			pocgi_time, microbe_status, ph_wastewater, ph_effluent, bod_wastewater, bod_effluent, toc_wastewater, toc_effluent, cod_wastewater, 
+			cod_effluent, ss_wastewater, ss_effluent, nhex_wastewater, nhex_effluent, cn_wastewater, cn_effluent, cu_wastewater, cu_effluent,
+			etc1_title, etc1_wastewater, etc1_effluent, etc2_title, etc2_wastewater, etc2_effluent, etc3_title, etc3_wastewater, etc3_effluent, 
+			search1_date, search2_date, ph_cleanstate, ph_siryostate, ph_injectstate, ph_sensor, ph_change, bod_cleanstate, bod_siryostate, 
+			bod_injectstate, bod_sensor,  bod_change, toc_cleanstate, toc_siryostate, toc_injectstate, toc_sensor, toc_change,
+			cod_cleanstate, cod_siryostate, cod_injectstate, cod_sensor, cod_change, ss_cleanstate, ss_siryostate, ss_injectstate, 
+			ss_sensor, ss_change, tn_cleanstate, tn_siryostate, tn_injectstate, tn_sensor, tn_change, tp_cleanstate, tp_siryostate, tp_injectstate, 
+			tp_sensor, tp_change, flowmeter_cleanstate, flowmeter_siryostate, flowmeter_injectstate, flowmeter_sensor, flowmeter_change,
+			siryogroup_cleanstate, siryogroup_siryostate, siryogroup_injectstate, siryogroup_sensor, siryogroup_change
+	  FROM
+	    factory_report_tbl
+	  
+	  WHERE
+	  	report_date = #{prev_date}
+	  	AND id = #{id}
+	</insert>
+	
+	<update id="updateFromPrevReport" parameterType="java.util.HashMap">
+		UPDATE report_tbl A, 
+		(
+			SELECT
+			  id, emp_seq, report_date, weather, temperature, starttime, endtime, discharge_sttime, discharge_endtime, prevent_sttime
+			  ,prevent_endtime, carwash_num, detergent, ml1, wax, ml2, pom, ml3, subtitle1, extra1, ml4, subtitle2, extra2
+			  ,ml5, subtitle3, extra3, ml6, pre_waterworks, today_waterworks, use_waterworks, waterworks_time, pre_underwater
+			  ,today_underwater, use_underwater, underwater_time, pre_genwaste, today_genwaste, use_genwaste, chk_diswaste, pre_diswaste
+			  ,today_diswaste, use_diswaste, pre_reuse, today_reuse, use_reuse, startworking_time, endworking_time, working_use
+			  ,reading_time, compute_guidelines, etc, med_name1, use_mount1, subuse1, buy_mount1, bal_mount1, sub_ect1, med_name2
+			  ,use_mount2, subuse2, buy_mount2, bal_mount2, sub_ect2, med_name3, use_mount3, subuse3, buy_mount3, bal_mount3
+			  ,sub_ect3, med_name4, use_mount4, subuse4, buy_mount4, bal_mount4, sub_ect4, sluge_gen, sluge_use, sluge_keep
+			  ,sluge_func, sluge_place, sluge_selfplace, instead_name, remarks, advise, chkop, chkput
+			  ,chkprevent, chkmed, chksluge, chkdiswastereuse, 'on' as chkholiday
+			FROM
+			    report_tbl
+			WHERE
+			  	report_date = #{prev_date}
+			  AND id = #{id}
+	    ) B
+		SET
+		  A.id=B.id, A.emp_seq=B.emp_seq, A.report_date=B.report_date, A.weather=B.weather, A.temperature=B.temperature, A.starttime=B.starttime
+		  ,A.endtime=B.endtime, A.discharge_sttime=B.discharge_sttime, A.discharge_endtime=B.discharge_endtime, A.prevent_sttime=B.prevent_sttime
+		  ,A.prevent_endtime=B.prevent_endtime, A.carwash_num=B.carwash_num, A.detergent=B.detergent, A.ml1=B.ml1, A.wax=B.wax, A.ml2=B.ml2, A.pom=B.pom
+		  ,A.ml3=B.ml3, A.subtitle1=B.subtitle1, A.extra1=B.extra1, A.ml4=B.ml4, A.subtitle2=B.subtitle2, A.extra2=B.extra2, A.ml5=B.ml5, A.subtitle3=B.subtitle3
+		  ,A.extra3=B.extra3, A.ml6=B.ml6, A.pre_waterworks=B.pre_waterworks, A.today_waterworks=B.today_waterworks, A.use_waterworks=B.use_waterworks
+		  ,A.waterworks_time=B.waterworks_time, A.pre_underwater=B.pre_underwater, A.today_underwater=B.today_underwater, A.use_underwater=B.use_underwater
+		  ,A.underwater_time=B.underwater_time, A.pre_genwaste=B.pre_genwaste, A.today_genwaste=B.today_genwaste, A.use_genwaste=B.use_genwaste
+		  ,A.chk_diswaste=B.chk_diswaste ,A.pre_diswaste=B.pre_diswaste, A.today_diswaste=B.today_diswaste, A.use_diswaste=B.use_diswaste, A.pre_reuse=B.pre_reuse, A.today_reuse=B.today_reuse
+		  ,A.use_reuse=B.use_reuse, A.startworking_time=B.startworking_time, A.endworking_time=B.endworking_time, A.working_use=B.working_use
+		  ,A.reading_time=B.reading_time, A.compute_guidelines=B.compute_guidelines, A.etc=B.etc, A.med_name1=B.med_name1, A.use_mount1=B.use_mount1
+		  ,A.subuse1=B.subuse1, A.buy_mount1=B.buy_mount1, A.bal_mount1=B.bal_mount1, A.sub_ect1=B.sub_ect1, A.med_name2=B.med_name2, A.use_mount2=B.use_mount2
+		  ,A.subuse2=B.subuse2, A.buy_mount2=B.buy_mount2, A.bal_mount2=B.bal_mount2, A.sub_ect2=B.sub_ect2, A.med_name3=B.med_name3, A.use_mount3=B.use_mount3
+		  ,A.subuse3=B.subuse3, A.buy_mount3=B.buy_mount3, A.bal_mount3=B.bal_mount3, A.sub_ect3=B.sub_ect3, A.med_name4=B.med_name4, A.use_mount4=B.use_mount4
+		  ,A.subuse4=B.subuse4, A.buy_mount4=B.buy_mount4, A.bal_mount4=B.bal_mount4, A.sub_ect4=B.sub_ect4, A.sluge_gen=B.sluge_gen, A.sluge_use=B.sluge_use
+		  ,A.sluge_keep=B.sluge_keep, A.sluge_func=B.sluge_func, A.sluge_place=B.sluge_place, A.sluge_selfplace=B.sluge_selfplace, A.instead_name=B.instead_name
+		  ,A.remarks=B.remarks, A.advise=B.advise, A.chkop=B.chkop, A.chkput=B.chkput, A.chkprevent=B.chkprevent, A.chkmed=B.chkmed, A.chksluge=B.chksluge
+		  ,A.chkdiswastereuse=B.chkdiswastereuse, A.chkholiday=B.chkholiday
+		WHERE
+			A.report_date=B.report_date
+		  AND
+		  	A.id = B.id
+	</update>
+	
+	
+	
+	<select id="selectData" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT 
+  		  report_date
+		  ,weather
+		  ,temperature
+		  ,starttime
+		  ,endtime
+		  ,discharge_sttime
+		  ,discharge_endtime
+		  ,prevent_sttime
+		  ,prevent_endtime
+		  ,carwash_num
+		  ,detergent
+		  ,ml1
+		  ,wax
+		  ,ml2
+		  ,pom
+		  ,ml3
+		  ,subtitle1
+		  ,extra1
+		  ,ml4
+		  ,subtitle2
+		  ,extra2
+		  ,ml5
+		  ,subtitle3
+		  ,extra3
+		  ,ml6
+		  ,pre_waterworks
+		  ,today_waterworks
+		  ,use_waterworks
+		  ,waterworks_time
+		  ,pre_underwater
+		  ,today_underwater
+		  ,use_underwater
+		  ,underwater_time
+		  ,pre_genwaste
+		  ,today_genwaste
+		  ,use_genwaste
+		  ,pre_diswaste
+		  ,today_diswaste
+		  ,use_diswaste
+		  ,pre_reuse
+		  ,today_reuse
+		  ,use_reuse
+		  ,startworking_time
+		  ,endworking_time
+		  ,working_use
+		  ,reading_time
+		  ,compute_guidelines
+		  ,etc
+		  ,med_name1
+		  ,use_mount1
+		  ,subuse1
+		  ,buy_mount1
+		  ,bal_mount1
+		  ,sub_ect1
+		  ,med_name2
+		  ,use_mount2
+		  ,subuse2
+		  ,buy_mount2
+		  ,bal_mount2
+		  ,sub_ect2
+		  ,med_name3
+		  ,use_mount3
+		  ,subuse3
+		  ,buy_mount3
+		  ,bal_mount3
+		  ,sub_ect3
+		  ,med_name4
+		  ,use_mount4
+		  ,subuse4
+		  ,buy_mount4
+		  ,bal_mount4
+		  ,sub_ect4
+		  ,sluge_gen
+		  ,sluge_use
+		  ,sluge_keep
+		  ,sluge_func
+		  ,sluge_place
+		  ,sluge_selfplace
+		  ,instead_name
+		  ,remarks
+		  ,advise
+		  ,chkop
+		  ,chkput
+		  ,chkprevent
+		  ,chkmed
+		  ,chksluge
+		  ,chkdiswastereuse
+		  ,chkholiday
+		  ,chk_diswaste
+	  FROM
+	    report_tbl A
+	  INNER JOIN
+	    (SELECT
+	    	id
+	    	,emp_seq
+	    FROM employee_tbl
+	    WHERE id=#{id}) AS B
+	    ON 
+			A.id = B.id
+	  WHERE
+	    report_date=#{report_date}
+	</select>
+	
+	<select id="selectFact2Data" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT 
+			report_date,
+			starttime,
+			endtime,
+			pre_waterworks,
+			today_waterworks,
+			use_waterworks,
+			pre_genwaste,
+			today_genwaste,
+			use_genwaste,
+			subtitle1,
+			ml1,
+			subtitle2,
+			ml2,
+			subtitle3,
+			ml3,
+			subtitle4,
+			ml4,
+			instead_mount,
+			instead_number,
+			instead_name,
+			keep_mount,
+			etc,
+			owner_sig,
+			staff_sig
+	  FROM
+	    factory2_report_tbl A
+	  INNER JOIN
+	    (SELECT
+	    	id
+	    	,emp_seq
+	    	,cmp_seq
+	    FROM employee_tbl
+	    WHERE id=#{id}) AS B
+	    ON 
+			A.cmp_seq = B.cmp_seq
+	  WHERE
+	    report_date=#{report_date}
+	</select>
+	
+	<select id="selectFactAllData" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT 
+  		  report_date,
+			starttime,
+			endtime,
+			pre_waterworks,
+			today_waterworks,
+			use_waterworks,
+			pre_genwaste,
+			today_genwaste,
+			use_genwaste,
+			subtitle1,
+			ml1,
+			subtitle2,
+			ml2,
+			subtitle3,
+			ml3,
+			subtitle4,
+			ml4,
+			instead_mount,
+			instead_number,
+			instead_name,
+			keep_mount,
+			etc,
+			owner_sig,
+			staff_sig
+	  FROM
+	    factory2_report_tbl
+	  WHERE
+	    cmp_seq=#{cmp_seq}
+	  AND
+	  	report_date like CONCAT(#{schmonth},'%')
+	  ORDER BY 
+	  	report_date 
+	  ASC;
+	</select>
+	
+	<select id="selectAllData" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT 
+  		  report_date
+		  ,weather
+		  ,temperature
+		  ,starttime
+		  ,endtime
+		  ,discharge_sttime
+		  ,discharge_endtime
+		  ,prevent_sttime
+		  ,prevent_endtime
+		  ,carwash_num
+		  ,detergent
+		  ,ml1
+		  ,wax
+		  ,ml2
+		  ,pom
+		  ,ml3
+		  ,subtitle1
+		  ,extra1
+		  ,ml4
+		  ,subtitle2
+		  ,extra2
+		  ,ml5
+		  ,subtitle3
+		  ,extra3
+		  ,ml6
+		  ,pre_waterworks
+		  ,today_waterworks
+		  ,use_waterworks
+		  ,waterworks_time
+		  ,pre_underwater
+		  ,today_underwater
+		  ,use_underwater
+		  ,underwater_time
+		  ,pre_genwaste
+		  ,today_genwaste
+		  ,use_genwaste
+		  ,pre_diswaste
+		  ,today_diswaste
+		  ,use_diswaste
+		  ,pre_reuse
+		  ,today_reuse
+		  ,use_reuse
+		  ,startworking_time
+		  ,endworking_time
+		  ,working_use
+		  ,reading_time
+		  ,compute_guidelines
+		  ,etc
+		  ,med_name1
+		  ,use_mount1
+		  ,subuse1
+		  ,buy_mount1
+		  ,bal_mount1
+		  ,sub_ect1
+		  ,med_name2
+		  ,use_mount2
+		  ,subuse2
+		  ,buy_mount2
+		  ,bal_mount2
+		  ,sub_ect2
+		  ,med_name3
+		  ,use_mount3
+		  ,subuse3
+		  ,buy_mount3
+		  ,bal_mount3
+		  ,sub_ect3
+		  ,med_name4
+		  ,use_mount4
+		  ,subuse4
+		  ,buy_mount4
+		  ,bal_mount4
+		  ,sub_ect4
+		  ,sluge_gen
+		  ,sluge_use
+		  ,sluge_keep
+		  ,sluge_func
+		  ,sluge_place
+		  ,sluge_selfplace
+		  ,instead_name
+		  ,remarks
+		  ,advise
+		  ,chkop
+		  ,chkput
+		  ,chkprevent
+		  ,chkmed
+		  ,chksluge
+		  ,chkdiswastereuse
+	  FROM
+	    report_tbl
+	  WHERE
+	    id=#{id}
+	  AND
+	  	report_date like CONCAT(#{schmonth},'%')
+	  ORDER BY 
+	  	report_date 
+	  ASC;
+	</select>
+	
+	<select id="selectMonthInfo" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT 
+  		  report_date
+  		  ,today_diswaste
+		  ,use_diswaste
+		FROM
+	    	report_tbl
+	  WHERE
+	  	id=#{id}
+	  AND
+	    report_date like CONCAT(#{report_date},'%')
+	  ORDER BY report_date ASC
+	</select>
+	
+	
+	
+	<select id="searchList" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+	  SELECT 
+  		  report_date
+		  ,today_diswaste
+	  FROM
+	    report_tbl
+	  
+	  WHERE
+	  	id=#{id}
+	  AND
+	  <![CDATA[ 
+	  	A.report_date like CONCAT(#{schmonth},'%')
+	  ]]>
+	  ORDER BY report_date asc;
+	</select>
+	
+	<select id="searchAutoList" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+	  SELECT 
+  		  report_date
+		  ,today_diswaste
+		  ,use_diswaste
+	  FROM
+	    report_tbl A
+	  WHERE
+	  	id=#{id}
+	  AND
+	  <![CDATA[ 
+	  	A.report_date like CONCAT(#{schmonth},'%')
+	  ]]>
+	  ORDER BY report_date asc;
+	</select>
+	
+	<select id="searchFactAutoList" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+	  SELECT 
+  		  report_date
+		  ,today_genwaste
+		  ,use_genwaste
+	  FROM
+	    factory2_report_tbl A
+	  WHERE
+	  	cmp_seq=#{cmp_seq}
+	  AND
+	  <![CDATA[ 
+	  	A.report_date like CONCAT(#{schmonth},'%')
+	  ]]>
+	  ORDER BY report_date asc;
+	</select>
+	
+	<insert id="insertCmpInfo">
+		INSERT INTO companyinfo_tbl (
+		   id
+		  ,cname
+		  ,regnumber
+		  ,agreement
+		  ,gubun
+		  ,zipcode
+		) VALUES (
+		   #{id}
+		  ,#{cname}
+		  ,#{regnumber}
+		  ,#{agreement}
+		  ,#{gubun}
+		  ,#{zipcode}
+		)
+	</insert>
+	
+	<insert id="insertEmpInfo">
+		INSERT INTO employee_tbl (
+		  name
+		  ,id
+		  ,pwd
+		  ,mobile
+		  ,email
+		  ,cmp_phone
+		  ,approval
+		  ,cmp_seq
+		) VALUES (
+		  #{name}
+		  ,#{id}
+		  ,#{pwd}
+		  ,''
+		  ,#{email}
+		  ,#{cmp_phone}
+		  ,#{approval}
+		  ,#{cmp_seq}
+		)
+	</insert>
+	<select id="isDuplcateEmpId" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT 
+		  count(*)
+		FROM
+		  employee_tbl
+		WHERE
+		  id=#{id};	
+	</select>
+	
+	<select id="selectIDFromCname" parameterType="net.ilium.model.Manager" resultType="String">
+		SELECT 
+			id, gubun
+		FROM
+			companyinfo_tbl
+		WHERE
+	  		cname=#{cname};
+	</select>
+	
+	<select id="selectIDAndCmpList" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT 
+			id
+			,cmp_seq
+			,cname
+		FROM
+			companyinfo_tbl
+		WHERE
+	  		zipcode=#{zipcode};
+	</select>
+	<select id="UseExcel" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT 
+		  use_excel 
+		FROM 
+		  companyinfo_tbl A
+		INNER JOIN 
+		  employee_tbl B 
+		ON 
+		  A.id = B.id AND B.id=#{id};
+	</select>
+	<select id="getUserInfo" parameterType="String" resultType="java.util.HashMap">
+		SELECT
+		  A.cname cname
+		  , A.address address
+		  , A.regnumber regnumber
+		  , B.id id
+		  , B.pwd pwd
+		  , B.cmp_phone cmp_phhone
+		  , B.email email
+		FROM
+		  companyinfo_tbl A
+		
+		JOIN
+		  employee_tbl B
+		ON
+		  A.id=B.id AND A.id=#{id};
+	</select>
+	
+	<update id="updateCmpInfo" parameterType="java.util.HashMap">
+	UPDATE 
+	  companyinfo_tbl 
+	SET
+	   cname = #{cname}
+	  ,address = #{address}
+	  ,agreement = #{agreement}
+	  ,regnumber = #{regnumber}
+	WHERE
+	  id = #{id}
+	</update>
+	
+	<update id="updateEmpInfo" parameterType="java.util.HashMap">
+	UPDATE 
+	  employee_tbl 
+	SET
+	  pwd = #{pwd}
+	  ,email = #{email}
+	  ,cmp_phone = #{cmp_phone}
+	WHERE 
+	  id=#{id}
+	</update>
+	
+	<select id="getApproval" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT 
+			approval
+		FROM
+			employee_tbl
+		WHERE
+	  		id=#{id};
+	</select>
+	
+	<select id="getzipcode" parameterType="net.ilium.model.Manager" resultType="String">
+		SELECT
+			zipcode
+		FROM
+			companyinfo_tbl
+		WHERE
+			id=#{id};
+	</select>
+	
+	<select id="getfactzipcode" parameterType="net.ilium.model.Manager" resultType="String">
+		SELECT
+			zipcode
+		FROM
+			companyinfo_tbl
+		WHERE
+			cmp_seq=#{cmp_seq};
+	</select>
+	
+	<select id="searchStation" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT
+			cname
+		FROM
+			companyinfo_tbl
+		WHERE
+		<![CDATA[ 
+		  	cname >= #{firstChar} AND cname <= #{lastChar}
+		  AND
+		  	zipcode=#{zipcode};
+		  ]]>
+	</select>
+	
+	<select id="searchAllStation" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT
+			cname
+		FROM
+			companyinfo_tbl
+		WHERE
+		zipcode=#{zipcode};
+	</select>
+	
+	<select id="searchSuperAllStation" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT
+			cname
+		FROM
+			companyinfo_tbl;
+	</select>
+	
+	<select id="searchSuperStation" parameterType="net.ilium.model.Manager" resultType="java.util.HashMap">
+		SELECT
+			cname
+		FROM
+			companyinfo_tbl
+		WHERE
+		<![CDATA[ 
+		  	cname >= #{firstChar} AND cname <= #{lastChar}
+		  ]]>
+	</select>
+		
+	<select id="searchGubun" parameterType="String" resultType="String">
+		SELECT
+			gubun
+		FROM
+			companyinfo_tbl A
+			INNER JOIN (
+		    	SELECT
+		      		cmp_seq
+		    	FROM 
+		      		employee_tbl
+		      	WHERE id=#{id}) B
+		WHERE
+			A.cmp_seq=B.cmp_seq;
+	</select>
+	
+	<select id="CheckRegNumber" parameterType="String" resultType="java.util.HashMap">
+		SELECT
+			cmp_seq
+			,cname
+			,zipcode
+		FROM
+			companyinfo_tbl
+		WHERE
+			regnumber=#{regnumber};
+	</select>
+	
+	<select id="placeInfo" resultType="java.util.HashMap">
+		SELECT
+			place_name
+			,place_number
+		FROM
+			place_tbl
+		ORDER BY place_name ASC;
+	</select>
+	
+	<select id="selectPlaceInfo" parameterType="String" resultType="String">
+		SELECT
+			place_name
+		FROM
+			place_tbl
+		WHERE
+			place_number=#{place_number};
+	</select>
+	
+	<select id="isCheckSameApproval" parameterType="net.ilium.model.Manager" resultType="Integer">
+		SELECT 
+		  count(*)
+		FROM
+		  employee_tbl
+		WHERE
+			cmp_seq=#{cmp_seq}
+		AND
+			approval=#{approval};	
+	</select>
+	
+	
+	
+</mapper>

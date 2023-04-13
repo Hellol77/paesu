@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib
+ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+ "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>u</short-name>
+    <uri>/util</uri>
+    <description>Custom common Tags</description>
+
+<!-- [ Framework Common Tags ] -->
+    <tag>
+        <name>clob</name>
+        <tag-class>com.fas.framework.commons.tags.ClobTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>CLOB  출력</description>
+        <attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>includeTag</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+			<name>escapeXml</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+	<tag>
+		<name>cutString</name>
+		<tag-class>com.fas.framework.commons.tags.CutStringTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>문장 자르기</description>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>size</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>endStr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>includeTag</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>escapeXml</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+	</tag>
+
+	<tag>
+		<name>formatByte</name>
+		<tag-class>com.fas.framework.commons.tags.FormatByteTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>파일크기  파싱</description>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+	</tag>
+
+	<tag>
+		<name>urlEncode</name>
+		<tag-class>com.fas.framework.commons.tags.UrlEncodeTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>URL 인코딩</description>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>charEncoding</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+	</tag>
+
+    <tag>
+        <name>formatDate</name>
+        <tag-class>com.fas.framework.commons.tags.FormatDateTag</tag-class>
+        <body-content>jsp</body-content>
+        <attribute>
+            <name>infmt</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>outfmt</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>formatPhoneNumber</name>
+        <tag-class>com.fas.framework.commons.tags.FormatPhoneNumberTag</tag-class>
+        <body-content>jsp</body-content>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>formatPercent</name>
+        <tag-class>com.fas.framework.commons.tags.FormatPercentTag</tag-class>
+        <body-content>jsp</body-content>
+        <attribute>
+            <name>pattern</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>total</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+	<tag>
+		<name>security</name>
+		<tag-class>com.fas.framework.commons.tags.SecurityTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>암,복호화를 적용하여 출력하기 위한 라이브러리</description>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>encode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>암복호화 여부(true = 암호화, false = 복호화)</description>
+        </attribute>
+        <attribute>
+            <name>mode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>암복호화 방식(DES, DES4, 3DES)</description>
+        </attribute>
+        <attribute>
+            <name>size</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>표시 문자수(0이면 전체표시, 0보다 크면 일부표시 및 나머지 * 처리)</description>
+        </attribute>
+	</tag>
+
+	<tag>
+		<name>download</name>
+		<tag-class>com.fas.framework.commons.tags.DownloadTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>첨부파일 다운로드 링크 생성을 위한 라이브러리</description>
+        <attribute>
+            <name>fileName</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>fullName</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+	<tag>
+		<name>commonCode</name>
+		<tag-class>com.fas.framework.commons.tags.CommonCodeTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>ComCodeUtil.java를 호출하여 공통코드를 출력하기 위한 태그 라이브러리</description>
+        <attribute>
+            <name>domainId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>groupId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>codeId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>var</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <name>pageHelper</name>
+        <tag-class>net.ilium.paesu.tag.PageHelperTag</tag-class>
+        <body-content>jsp</body-content>
+        <description>Page Bar 출력</description>
+        <attribute>
+            <name>urlFormat</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>URL 포멧</description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>baseDTO의 pageMap</description>
+        </attribute>
+    </tag>
+
+</taglib>

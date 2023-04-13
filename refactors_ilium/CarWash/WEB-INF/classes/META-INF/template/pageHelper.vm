@@ -1,0 +1,37 @@
+#**********************************************************************************
+ * Velocity를 이용한 Page Navigation 구현
+ * 
+ * 데이터는 BaseDTO의 getPageMap()에서 정의됨.
+ *********************************************************************************#
+
+#if ($startPage > $pageSize)
+				<a href="${urlFormat.format($urlFormat, $firstPage)}" title="처음페이지로" class="btn btn-first">처음<span></span></a>
+#end
+
+#if ($nowPage > 1)
+				<a href="${urlFormat.format($urlFormat, $prevPage)}" title="이전페이지로" class="btn btn-prev">이전<span></span></a>
+#end
+
+#foreach ($item in $pages)
+	#if ($item == $nowPage)
+				<strong title="현재페이지"
+		#if ($item == $endPage)
+					class="last"
+		#end
+				>$!{item}</strong>
+	#else
+				<a href="${urlFormat.format($urlFormat, $item)}" title="$!{item}페이지로"
+		#if ($item == $endPage)
+					class="last"
+		#end
+				>$!{item}</a>
+	#end
+#end
+
+#if ($nowPage < $totalPage)
+				<a href="${urlFormat.format($urlFormat, $nextPage)}" title="다음페이지로" class="btn btn-next">다음<span></span></a>
+#end
+
+#if ($endPage < $totalPage)
+				<a href="${urlFormat.format($urlFormat, $lastPage)}" title="마지막페이지로" class="btn btn-last">마지막<span></span></a>
+#end

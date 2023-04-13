@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- 관리자 템플릿 -->
+	<definition name="admin-default" template="/WEB-INF/template/admin/template-main.jsp">
+		<put-attribute name="header"	value="/WEB-INF/template/admin/header.jsp" />
+		<put-attribute name="lnb"		value="/WEB-INF/template/admin/lnb.jsp" />
+		<put-attribute name="body"		value="" />
+		<put-attribute name="footer"	value="/WEB-INF/template/admin/footer.jsp" />
+	</definition>
+	<!-- 관리자 푸시 템플릿 -->
+	<definition name="template-push" template="/WEB-INF/template/admin/template-main.jsp">
+		<put-attribute name="header"	value="/WEB-INF/template/admin/header.jsp" />
+		<put-attribute name="lnb"		value="/WEB-INF/template/admin/lnb.jsp" />
+		<put-attribute name="body"		value="" />
+		<put-attribute name="footer"	value="/WEB-INF/template/admin/footer.jsp" />
+	</definition>
+	
+	
+	<!-- 관리자 로그인 템플릿 -->
+	<definition name="admin-login" template="/WEB-INF/template/admin/template-login.jsp">
+		<put-attribute name="body"		value="" />
+	</definition>
+	<!-- 관리자 팝업 템플릿 -->
+	<definition name="admin-pop" template="/WEB-INF/template/admin/template-pop.jsp">
+		<put-attribute name="body"		value="" />
+	</definition>
+
+
+	<!-- 관리자 팝업 -->
+	<definition name="view:/admin/**/*Popup" extends="admin-pop">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	<!-- 관리자 로그인 -->
+	<definition name="view:/admin/login/*" extends="admin-login">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	
+	<!-- 관리자 Push -->
+	<definition name="view:/admin/push/*" extends="admin-default">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	<definition name="view:/admin/push/**/*" extends="admin-default">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	<!-- 관리자 기본 -->
+	<definition name="view:/admin/*" extends="admin-default">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	<definition name="view:/admin/**/*" extends="admin-default">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	
+	<!-- 폐수일지 시스템 로그인 -->
+	<definition name="view:/login/*" extends="admin-login">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	
+	<!-- 폐수일지 메인 -->
+	<definition name="view:/paesu/*" extends="admin-default">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	
+	<!-- 모바일 요청 메인 -->
+	<definition name="view:/mobile/*" extends="admin-default">
+		<put-attribute name="body"	expression="${requestScope.BODY_URL}" />
+	</definition>
+	
+</tiles-definitions>
