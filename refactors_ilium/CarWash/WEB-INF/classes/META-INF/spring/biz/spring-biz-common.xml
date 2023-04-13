@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- Autowired Annotation -->
+	<context:component-scan base-package="net.ilium" />
+
+	<util:properties id="menuConfig" location="classpath:/META-INF/service/service.xml" />
+
+	<!-- '/' URL요청을 받았을 경우 기본으로 호출할 viewName -->
+	<mvc:view-controller path="/" view-name="login" />
+
+
+	<!--[START] Message Source 설정 -->
+	<bean id="messageSourceFile" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">	
+		<property name="basenames">
+			<list>
+				<!-- 고객 오류 메세지 -->
+				<value>classpath:/META-INF/messages/error/user_error_message</value>
+				<!-- 개발자 정의 고객 오류 메세지 -->
+				<value>classpath:/META-INF/messages/error/error</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="messageSourceFileAccessor" class="org.springframework.context.support.MessageSourceAccessor">	
+		<constructor-arg ref="messageSourceFile" />
+	</bean>
+	<bean class="com.fas.framework.commons.util.ErrorMessageUtil">
+		<property name="messageSourceFileAccessor" ref="messageSourceFileAccessor" />
+	</bean>
+	<!--[END] Message Source 설정 -->
+
+
+</beans>
