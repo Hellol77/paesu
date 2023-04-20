@@ -136,4 +136,9 @@ td {
   font-weight: bold;
 }
 
+.readOnly {
+  border: none;
+  text-align: center;
+}
+
 /*# sourceMappingURL=insert.css.map */
