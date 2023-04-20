@@ -2,9 +2,9 @@ toggleSelect.addEventListener("change", () => {
   selectContent.classList.toggle("active");
 });
 
-function onChange(value, id) {
+function onChange(currentValue, prevValue, id) {
   const usage = document.getElementById(id);
-  usage.textContent = value;
+  usage.textContent = currentValue - prevValue;
 }
 
 //한글적용을 위해 추가
