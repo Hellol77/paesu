@@ -1,0 +1,65 @@
+@import "reset.css";
+
+.login_box {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 600px;
+  background-color: #6cbcca;
+  color: white;
+  height: 320px;
+  margin-top: 300px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  .login_title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 50px;
+  }
+  .form_box {
+    display: flex;
+    margin-top: 30px;
+    .input-box {
+      display: flex;
+      flex-direction: column;
+      input {
+        width: 200px;
+        border: none;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        height: 30px;
+        padding-left: 10px;
+        border-radius: 3px;
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.19),
+          0 6px 6px rgba(0, 0, 0, 0.23);
+      }
+    }
+    .submit {
+      width: 80px;
+      margin: px;
+      border: none;
+      color: white;
+      margin-bottom: 14px;
+      background-color: black;
+      border-radius: 5px;
+      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+  }
+  .info {
+    width: 100%;
+    text-align: right;
+    line-height: 130%;
+    padding-right: 30px;
+    margin-top: 20px;
+  }
+  label {
+    margin-left: 10px;
+  }
+}
+a {
+  text-decoration: none;
+  color: white;
+  margin-left: 30px;
+}
