@@ -1,18 +1,10 @@
-const toggleBtn = document.querySelector(".navbar__toogleBtn");
-const menu = document.querySelector(".navbar__menu");
-const toggleSelect = document.querySelector(".select__button");
-const selectContent = document.querySelector(".select__content");
 toggleSelect.addEventListener("change", () => {
   selectContent.classList.toggle("active");
 });
 
-toggleBtn.addEventListener("click", () => {
-  menu.classList.toggle("active");
-});
-
-function onChange(value,id) {
+function onChange(currentValue, prevValue, id) {
   const usage = document.getElementById(id);
-  usage.textContent = value;
+  usage.textContent = currentValue - prevValue;
 }
 
 //한글적용을 위해 추가

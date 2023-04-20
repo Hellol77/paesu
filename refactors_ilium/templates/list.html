@@ -4,14 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>폐수일지(WMS)</title>
+    <link rel="stylesheet" href="/static/css/reset.css" />
+    <link rel="stylesheet" href="/static/css/navbar.css" />
+    <link rel="stylesheet" href="/static/css/list.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
     <link
       rel="shortcut icon"
       type="image/x-icon"
       href="/static/image/pample_logo_symbol.png"
     />
-    <link rel="stylesheet" href="/static/css/reset.css" />
-    <link rel="stylesheet" href="/static/css/navbar.css" />
+
+    <title>폐수일지(WMS)</title>
   </head>
   <body>
     <nav>
@@ -30,5 +36,43 @@
         <i class="fas fa-bars"></i>
       </a>
     </nav>
+    <div class="content">
+      <div class="content__box"></div>
+      <form action="">
+        <div class="date">
+          <select id="year" name="year">
+            <option value=""></option>
+          </select>
+          <select id="month" name="month"></select>
+        </div>
+        <div>
+          <select name="initial-select" id="initial-select"></select>
+          <select name="filtered-select" id="filtered-select"></select>
+        </div>
+      </form>
+      <div class="content__box">
+        <table>
+          <tr>
+            <th>날짜</th>
+            <th>폐수배출량</th>
+            <th>사용량</th>
+            <th>상태</th>
+            <th>엑셀</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><span>입력필요</span><span>입력완료</span></td>
+            <td><button>다운로드</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/list.js"></script>
+    <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
+    <script src="/static/js/nav.js"></script>
   </body>
 </html>
