@@ -131,4 +131,9 @@ td {
   width: 100%;
 }
 
+.usage {
+  color: red;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=insert.css.map */

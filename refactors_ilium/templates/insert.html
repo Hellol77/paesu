@@ -46,7 +46,7 @@
         <i class="fas fa-bars"></i>
       </a>
     </nav>
-    <form action="">
+    <form action="" onsubmit="return false;">
       <div class="content">
         <ul class="content__box">
           <li>1. 작성일자</li>
@@ -88,8 +88,14 @@
             <tbody>
               <tr>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td id="1"></td>
+                <td>
+                  <input
+                    class="text-input"
+                    type="number"
+                    onchange="onChange(this.value,1)"
+                  />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -107,8 +113,14 @@
             <tbody>
               <tr>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td id="2"></td>
+                <td>
+                  <input
+                    class="text-input"
+                    type="number"
+                    onchange="onChange(this.value,2)"
+                  />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -129,8 +141,14 @@
             <tbody>
               <tr>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td id="3"></td>
+                <td>
+                  <input
+                    class="text-input"
+                    type="number"
+                    onchange="onChange(this.value,3)"
+                  />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -149,8 +167,14 @@
             <tbody>
               <tr>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td id="4"></td>
+                <td>
+                  <input
+                    class="text-input"
+                    type="number"
+                    onchange="onChange(this.value,4)"
+                  />
+                </td>
               </tr>
             </tbody>
           </table>

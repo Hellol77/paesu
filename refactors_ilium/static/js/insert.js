@@ -10,6 +10,11 @@ toggleBtn.addEventListener("click", () => {
   menu.classList.toggle("active");
 });
 
+function onChange(value,id) {
+  const usage = document.getElementById(id);
+  usage.textContent = value;
+}
+
 //한글적용을 위해 추가
 $.datepicker.setDefaults({
   dateFormat: "yy-mm-dd",
