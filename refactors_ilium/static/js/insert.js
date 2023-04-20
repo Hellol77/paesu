@@ -4,7 +4,7 @@ toggleSelect.addEventListener("change", () => {
 
 function onChange(currentValue, prevValue, id) {
   const usage = document.getElementById(id);
-  usage.textContent = currentValue - prevValue;
+  usage.value = currentValue - prevValue;
 }
 
 //한글적용을 위해 추가
