@@ -1,16 +1,8 @@
-const toggleBtn = document.querySelector(".navbar__toogleBtn");
-const menu = document.querySelector(".navbar__menu");
-const toggleSelect = document.querySelector(".select__button");
-const selectContent = document.querySelector(".select__content");
 toggleSelect.addEventListener("change", () => {
   selectContent.classList.toggle("active");
 });
 
-toggleBtn.addEventListener("click", () => {
-  menu.classList.toggle("active");
-});
-
-function onChange(value,id) {
+function onChange(value, id) {
   const usage = document.getElementById(id);
   usage.textContent = value;
 }
