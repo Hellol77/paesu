@@ -21,6 +21,4 @@ urlpatterns = [
 
     path('', include('users.urls')),
     path('', include('paesu_app.urls')),
-
-    path('accounts/', include('allauth.urls')),
 ]
