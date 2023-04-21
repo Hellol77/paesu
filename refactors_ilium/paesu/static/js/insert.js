@@ -49,7 +49,7 @@ $.datepicker.setDefaults({
 $(function () {
   $("#datepicker").datepicker();
 
-  $("#datepicker").datepicker("setDate", "today"); //(
+  // $("#datepicker").datepicker("setDate", "today"); //(
 });
 $(function () {
   $(".time1").timepicker({
@@ -70,7 +70,7 @@ $(function () {
     interval: 60,
     minTime: "1",
     maxTime: "23:00",
-    defaultTime: "9",
+    defaultTime: "18",
     startTime: "01:00",
     dynamic: false,
     dropdown: true,
