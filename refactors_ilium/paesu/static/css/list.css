@@ -1,0 +1,55 @@
+.content__box {
+  display: flex;
+  width: 80vw;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#year,
+#month,
+#initial-select,
+#filtered-select {
+  width: 30vw;
+  padding: 5px;
+  font-size: 14px;
+  margin: 10px;
+}
+
+.date {
+  margin-top: 50px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #dddada;
+  margin-top: 10px;
+}
+
+th {
+  background-color: rgb(241, 245, 245);
+  padding: 10px;
+  border: 1px solid #dddada;
+  white-space: nowrap;
+}
+
+td {
+  border: 1px solid #dddada;
+  padding: 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+button {
+  border: 1px solid #dddada;
+  border-radius: 3px;
+  background-color: rgb(241, 245, 245);
+}
+
+/*# sourceMappingURL=list.css.map */

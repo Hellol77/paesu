@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/reset.css" />
-    <link rel="stylesheet" href="../static/css/insert.css" />
-    <link rel="stylesheet" href="../static/css/navbar.css" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/insert.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
@@ -14,7 +16,7 @@
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="../static/image/pample_logo_symbol.png"
+      href="{% static 'image/pample_logo_symbol.png' %}"
     />
     <link
       rel="stylesheet"
@@ -32,21 +34,24 @@
   <body>
     <nav>
       <div class="navbar__title-box">
-        <img src="/static/image/pample_logo_symbol.png" class="navbar__icon" />
+        <img src="{% static 'image/pample_logo_symbol.png' %}" class="navbar__icon" />
         <div class="navbar__title">
-          <a href="/templates/insert.html">폐수시설 운영일지</a>
+          <a href="/insert">폐수시설 운영일지</a>
         </div>
       </div>
       <ul class="navbar__menu">
-        <li><a href="/templates/insert.html">폐수일지 입력</a></li>
-        <li><a href="/templates/list.html">폐수일지 리스트</a></li>
-        <li><a href="/templates/changeInfo.html">사용자정보 변경</a></li>
+        <li><a href="/insert/today">폐수일지 입력</a></li>
+        <li><a href="/list">폐수일지 리스트</a></li>
+        <li><a href="/changeInfo">사용자정보 변경</a></li>
       </ul>
       <a href="#" class="navbar__toogleBtn">
         <i class="fas fa-bars"></i>
       </a>
     </nav>
-    <form action="" onsubmit="return false;">
+    <form
+      method="post"
+      action="./{{date}}" >
+      {% csrf_token %}
       <div class="content">
         <ul class="content__box">
           <li>1. 작성일자</li>
@@ -61,14 +66,14 @@
             <tbody>
               <tr>
                 <td class="date-td">
-                  <input id="datepicker" />
-                  <div>휴일 <input name="rest" type="checkbox" /></div>
+                  <input id="datepicker" name="date" value="{{date}}" />
+                  <div>휴일 <input name="rest" type="checkbox" {% if psrecord.date_ck == 'on' %} checked {% else %}{% endif %}/></div>
                 </td>
                 <td id="weather">
-                  <input class="text-input" type="text" />
+                  <input name="weather" class="text-input" type="text" value="{{psrecord.date_weather}}" />
                 </td>
                 <td id="temperature">
-                  <input class="text-input" type="text" />
+                  <input name="temperature" class="text-input" type="text" value="{{psrecord.date_temperature}}" />
                 </td>
               </tr>
             </tbody>
@@ -87,13 +92,15 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="text" class="readOnly" readonly /></td>
-                <td><input id="1" type="text" class="readOnly" readonly /></td>
+                <td><input type="text" name="waterworks_prevd" value="{{waterworks_prevd}}" class="readOnly" readonly /></td>
+                <td><input id="1" type="text" name="waterworks_used" value="{{psrecord.waterworks_used}}" class="readOnly" readonly /></td>
                 <td>
                   <input
+                    name="waterworks_today"
                     class="text-input"
                     type="number"
-                    onchange="onChange(this.value,0,1)"
+                    value="{{psrecord.waterworks_today}}"
+                    onchange="onChange(this.value,'{{waterworks_prevd}}',1)"
                   />
                 </td>
               </tr>
@@ -104,7 +111,7 @@
               <tr>
                 <th colspan="3">지하수(㎥)</th>
               </tr>
-              <tr>
+              <tr> 
                 <th>전일</th>
                 <th>사용량</th>
                 <th>금일</th>
@@ -112,13 +119,15 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="text" class="readOnly" readonly /></td>
-                <td><input id="2" type="text" class="readOnly" readonly /></td>
+                <td><input type="text" name="underwater_prevd" value="{{underwater_prevd}}" class="readOnly" readonly /></td>
+                <td><input id="2" type="text" name="underwater_used" value="{{psrecord.underwater_prevd}}" class="readOnly" readonly /></td>
                 <td>
                   <input
+                    name="underwater_today"
                     class="text-input"
                     type="number"
-                    onchange="onChange(this.value,0,2)"
+                    value="{{psrecord.underwater_today}}"
+                    onchange="onChange(this.value,'{{underwater_prevd}}',2)"
                   />
                 </td>
               </tr>
@@ -129,7 +138,7 @@
               <tr>
                 <th colspan="3">
                   폐수배출량(㎥) <span class="usage">사용 유무</span>
-                  <input name="rest" type="checkbox" />
+                  <input name="rest" type="checkbox" {% if psrecord.diswaste_ck == 'on' %} checked {% else %}{% endif %} />
                 </th>
               </tr>
               <tr>
@@ -140,13 +149,15 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="text" class="readOnly" readonly /></td>
-                <td><input id="3" type="text" class="readOnly" readonly /></td>
+                <td><input type="text" name="diswaste_prevd" value="{{diswaste_prevd}}" class="readOnly" readonly /></td>
+                <td><input id="3" type="text" name="diswaste_used" value="{{psrecord.diswaste_used}}" class="readOnly" readonly /></td>
                 <td>
                   <input
+                    name="diswaste_today"
                     class="text-input"
                     type="number"
-                    onchange="onChange(this.value,0,3)"
+                    value="{{psrecord.diswaste_today}}"
+                    onchange="onChange(this.value,'{{diswaste_prevd}}',3)"
                   />
                 </td>
               </tr>
@@ -166,13 +177,15 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="text" class="readOnly" readonly /></td>
-                <td><input id="4" type="text" class="readOnly" readonly /></td>
+                <td><input type="text" name="poweruse_prevd" value="{{poweruse_prevd}}" class="readOnly" readonly /></td>
+                <td><input id="4" type="text" name="poweruse_used" value="{{psrecord.poweruse_used}}" class="readOnly" readonly /></td>
                 <td>
                   <input
+                    name="poweruse_today"
                     class="text-input"
                     type="number"
-                    onchange="onChange(this.value,0,4)"
+                    value="{{psrecord.poweruse_today}}"
+                    onchange="onChange(this.value,'{{poweruse_prevd}}',4)"
                   />
                 </td>
               </tr>
@@ -188,10 +201,10 @@
             <tbody>
               <tr>
                 <td>
-                  <input type="text" name="time1" class="form-control time1" />
+                  <input type="text" name="time1" class="form-control time1" value="{{psrecord.poweruse_start}}"/>
                 </td>
                 <td>
-                  <input type="text" name="time2" class="form-control time1" />
+                  <input type="text" name="time2" class="form-control time2" value="{{psrecord.poweruse_end}}"/>
                 </td>
               </tr>
             </tbody>
@@ -199,7 +212,7 @@
           <table>
             <tr>
               <th>참고사항</th>
-              <td><input type="text" class="text-input" /></td>
+              <td><input type="text" name ="poweruse_etc" class="text-input" value="{{psrecord.poweruse_etc}}"/></td>
             </tr>
           </table>
           <li>
@@ -212,9 +225,9 @@
             <thead>
               <tr>
                 <th>폐수발생량(㎥)</th>
-                <td><input type="number" class="additional__input" /></td>
+                <td><input type="number" name ="genwaster" class="additional__input" value="{{psrecord.genwaster}}"/></td>
                 <th>재사용량(㎥)</th>
-                <td><input type="number" class="additional__input" /></td>
+                <td><input type="number" name ="reuse" class="additional__input" value="{{psrecord.reuse}}"/></td>
               </tr>
             </thead>
           </table>
@@ -224,71 +237,71 @@
               <tr>
                 <th colspan="2">세차대수</th>
                 <td colspan="2">
-                  <input type="number" class="additional__input" />&nbsp;대
+                  <input type="number" name="at_washnum" class="additional__input" value="{{psrecord.at_washnum}}" />&nbsp;대
                 </td>
               </tr>
               <tr>
                 <th>세제</th>
-                <td><input type="text" class="additional__title__input" /></td>
+                <td><input type="text" name="at_detergent" class="additional__title__input" value="{{psrecord.at_detergent}}" /></td>
                 <th>세차 1대당</th>
                 <td>
-                  <input type="number" class="additional__input" />&nbsp;mL
+                  <input type="number" name="at_detergent_use" class="additional__input" value="{{psrecord.at_detergent_use}}" />&nbsp;mL
                 </td>
               </tr>
               <tr>
                 <th>왁스</th>
                 <td>
-                  <input type="number" class="additional__title__input" />
+                  <input type="number" name="at_wax" class="additional__title__input" value="{{psrecord.at_wax}}" />
                 </td>
                 <th>세차 1대당</th>
                 <td>
-                  <input type="number" class="additional__input" />&nbsp;mL
+                  <input type="number" name="at_wax_use" class="additional__input" value="{{psrecord.at_wax_use}}" />&nbsp;mL
                 </td>
               </tr>
               <tr>
                 <th>폼</th>
                 <td>
-                  <input type="number" class="additional__title__input" />
+                  <input type="number" name="at_pom" class="additional__title__input" value="{{psrecord.at_pom}}" />
                 </td>
                 <th>세차 1대당</th>
                 <td>
-                  <input type="number" class="additional__input" />&nbsp;mL
+                  <input type="number" name="at_pom_use" class="additional__input" value="{{psrecord.at_pom_use}}" />&nbsp;mL
                 </td>
               </tr>
               <tr>
                 <th>
-                  <input type="text" class="additional__title__input" />
+                  <input type="text" name="at_sub1" class="additional__title__input" value="{{psrecord.at_sub1}}" />
                 </th>
                 <td>
-                  <input type="number" class="additional__title__input" />
+                  <input type="number" name="at_sub1_memo" class="additional__title__input" value="{{psrecord.at_sub1_memo}}" />
                 </td>
                 <th>세차 1대당</th>
                 <td>
-                  <input type="number" class="additional__input" />&nbsp;mL
+                  <input type="number" name="at_sub1_use" class="additional__input" value="{{psrecord.at_sub1_use}}" />&nbsp;mL
                 </td>
               </tr>
               <tr>
                 <th>
-                  <input type="text" class="additional__title__input" />
+                  <input type="text" name="at_sub2" class="additional__title__input" value="{{psrecord.at_sub2}}" />
                 </th>
                 <td>
-                  <input type="number" class="additional__title__input" />
+                  <input type="number" name="at_sub2_memo" class="additional__title__input" value="{{psrecord.at_sub2_memo}}" />
                 </td>
                 <th>세차 1대당</th>
                 <td>
-                  <input type="number" class="additional__input" />&nbsp;mL
+                  <input type="number" name="at_sub2_use" class="additional__input" value="{{psrecord.at_sub2_use}}" />&nbsp;mL
                 </td>
               </tr>
               <tr>
                 <th>
-                  <input type="text" class="additional__title__input" />
+                  <input type="text" name="at_sub3" class="additional__title__input" value="{{psrecord.at_sub3}}" />
                 </th>
                 <td>
-                  <input type="number" class="additional__title__input" />
+                  <input type="number" name="at_sub3_memo" class="additional__title__input" value="{{psrecord.at_sub3_memo}}" />
                 </td>
                 <th>세차 1대당</th>
                 <td>
-                  <input type="number" class="additional__input" />&nbsp;mL
+                  <input type="number" name="at_sub3_use" class="additional__input" value="{{psrecord.at_sub3_use}}" />&nbsp;mL
                 </td>
               </tr>
             </tbody>
@@ -298,11 +311,11 @@
             <tr>
               <th>시작 시간</th>
               <td>
-                <input type="text" name="time3" class="form-control time1" />
+                <input type="text" name="op_start" class="form-control time1" value="{{psrecord.op_start}}" />
               </td>
               <th>종료 시간</th>
               <td>
-                <input type="text" name="time3" class="form-control time1" />
+                <input type="text" name="op_end" class="form-control time2" value="{{psrecord.op_end}}" />
               </td>
             </tr>
           </table>
@@ -311,11 +324,11 @@
             <tr>
               <th>시작 시간</th>
               <td>
-                <input type="text" name="time3" class="form-control time1" />
+                <input type="text" name="emission_start" class="form-control time1" value="{{psrecord.emission_start}}" />
               </td>
               <th>종료 시간</th>
               <td>
-                <input type="text" name="time3" class="form-control time1" />
+                <input type="text" name="emission_end" class="form-control time2" value="{{psrecord.emission_end}}" />
               </td>
             </tr>
           </table>
@@ -324,11 +337,11 @@
             <tr>
               <th>시작 시간</th>
               <td>
-                <input type="text" name="time3" class="form-control time1" />
+                <input type="text" name="prev_start" class="form-control time1" value="{{psrecord.prev_start}}" />
               </td>
               <th>종료 시간</th>
               <td>
-                <input type="text" name="time3" class="form-control time1" />
+                <input type="text" name="prev_end" class="form-control time2" value="{{psrecord.prev_end}}" />
               </td>
             </tr>
           </table>
@@ -336,80 +349,80 @@
           <table>
             <tr>
               <th>약품명</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <td><input type="text" name="med1_name" class="additional__title__input" value="{{psrecord.med1_name}}" /></td>
               <th>사용량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med1_used" class="additional__input" value="{{psrecord.med1_used}}" />&nbsp;mL</td>
             </tr>
             <tr>
-              <th>구입략</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <th>구입량</th>
+              <td><input type="text" name="med1_buy" class="additional__title__input" value="{{psrecord.med1_buy}}" /></td>
               <th>잔고량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med1_balance" class="additional__input" value="{{psrecord.med1_balance}}" />&nbsp;mL</td>
             </tr>
             <tr>
               <th colspan="1">비고</th>
               <td colspan="3">
-                <input type="text" class="additional__title__input" />
+                <input type="text" name="med1_etc" class="additional__title__input" value="{{psrecord.med1_etc}}" />
               </td>
             </tr>
           </table>
           <table>
             <tr>
               <th>약품명</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <td><input type="text" name="med2_name" class="additional__title__input" value="{{psrecord.med2_name}}" /></td>
               <th>사용량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med2_used" class="additional__input" value="{{psrecord.med2_used}}" />&nbsp;mL</td>
             </tr>
             <tr>
-              <th>구입략</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <th>구입량</th>
+              <td><input type="text" name="med2_buy" class="additional__title__input" value="{{psrecord.med2_buy}}" /></td>
               <th>잔고량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med2_balance" class="additional__input" value="{{psrecord.med2_balance}}" />&nbsp;mL</td>
             </tr>
             <tr>
               <th colspan="1">비고</th>
               <td colspan="3">
-                <input type="text" class="additional__title__input" />
+                <input type="text" name="med2_etc" class="additional__title__input" value="{{psrecord.med2_etc}}" />
               </td>
             </tr>
           </table>
           <table>
             <tr>
               <th>약품명</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <td><input type="text" name="med3_name" class="additional__title__input" value="{{psrecord.med3_name}}" /></td>
               <th>사용량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med3_used" class="additional__input" value="{{psrecord.med3_used}}" />&nbsp;mL</td>
             </tr>
             <tr>
-              <th>구입략</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <th>구입량</th>
+              <td><input type="text" name="med3_buy" class="additional__title__input" value="{{psrecord.med3_buy}}" /></td>
               <th>잔고량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med3_balance" class="additional__input" value="{{psrecord.med3_balance}}" />&nbsp;mL</td>
             </tr>
             <tr>
               <th colspan="1">비고</th>
               <td colspan="3">
-                <input type="text" class="additional__title__input" />
+                <input type="text" name="med3_etc" class="additional__title__input" value="{{psrecord.med3_etc}}" />
               </td>
             </tr>
           </table>
           <table>
             <tr>
               <th>약품명</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <td><input type="text" name="med4_name" class="additional__title__input" value="{{psrecord.med4_name}}" /></td>
               <th>사용량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med4_used" class="additional__input" value="{{psrecord.med4_used}}" />&nbsp;mL</td>
             </tr>
             <tr>
-              <th>구입략</th>
-              <td><input type="text" class="additional__title__input" /></td>
+              <th>구입량</th>
+              <td><input type="text" name="med4_buy" class="additional__title__input" value="{{psrecord.med4_buy}}" /></td>
               <th>잔고량</th>
-              <td><input type="number" class="additional__input" />&nbsp;mL</td>
+              <td><input type="number" name="med4_balance" class="additional__input" value="{{psrecord.med4_balance}}" />&nbsp;mL</td>
             </tr>
             <tr>
               <th colspan="1">비고</th>
               <td colspan="3">
-                <input type="text" class="additional__title__input" />
+                <input type="text" name="med4_etc" class="additional__title__input" value="{{psrecord.med4_etc}}" />
               </td>
             </tr>
           </table>
@@ -417,35 +430,35 @@
           <table>
             <tr>
               <th>슬러지발생량</th>
-              <td><input type="text" class="additional__input" /></td>
+              <td><input type="text" name="sluge_gene" class="additional__input" value="{{psrecord.sluge_gene}}" /></td>
               <th>처리량</th>
-              <td><input type="text" class="additional__input" /></td>
+              <td><input type="text" name="sluge_used" class="additional__input" value="{{psrecord.sluge_used}}" /></td>
             </tr>
             <tr>
               <th>보관량</th>
-              <td><input type="text" class="additional__input" /></td>
+              <td><input type="text" name="sluge_keep" class="additional__input" value="{{psrecord.sluge_keep}}" /></td>
               <th>함수율(%)</th>
-              <td><input type="text" class="additional__input" /></td>
+              <td><input type="text" name="sluge_func" class="additional__input" value="{{psrecord.sluge_func}}" /></td>
             </tr>
             <tr>
               <th>보관장소</th>
-              <td><input type="text" class="additional__input" /></td>
+              <td><input type="text" name="sluge_place" class="additional__input" value="{{psrecord.sluge_place}}" /></td>
               <th>처리장소</th>
-              <td><input type="text" class="additional__input" /></td>
+              <td><input type="text" name="sluge_selfplace" class="additional__input" value="{{psrecord.sluge_selfplace}}" /></td>
             </tr>
             <tr>
               <th colspan="2">위탁처리업소명</th>
               <td colspan="2">
-                <input type="text" class="additional__input" />
+                <input type="text" name="sluge_corp" class="additional__input" value="{{psrecord.sluge_corp}}" />
               </td>
             </tr>
           </table>
           <div class="additional__title">
             방지시설 고장유무 및 특기사항(선택)
           </div>
-          <input type="text" class="long" />
+          <input type="text" name="remarks" class="long" value="{{psrecord.remarks}}" />
           <div class="additional__title">지도 또는 점검 받은 사항(선택)</div>
-          <input type="text" class="long" />
+          <input type="text" name="advise" class="long" value="{{psrecord.advise}}" />
         </ul>
         <button type="submit" class="submit__button">저장</button>
       </div>
@@ -469,8 +482,7 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-    <script src="/static/js/nav.js"></script>
-    <script src="/static/js/insert.js"></script>
-
+    <script src="{% static 'js/nav.js' %}"></script>
+    <script src="{% static 'js/insert.js' %}"></script>
   </body>
 </html>
