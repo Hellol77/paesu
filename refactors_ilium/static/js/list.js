@@ -60,6 +60,8 @@ function createInitialSoundOptions() {
   }
 }
 createInitialSoundOptions();
+
+// 데이터
 const data = [
   "가게",
   "가구",
@@ -115,7 +117,6 @@ select1.addEventListener("change", () => {
     }
   } else {
     // 초성으로 필터링된 경우
-    console.log("wefwe");
     const filteredData = filterDataByInitial(initial);
     select2.innerHTML = "";
     for (const item of filteredData) {
