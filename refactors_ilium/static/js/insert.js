@@ -49,8 +49,9 @@ $.datepicker.setDefaults({
 $(function () {
   $("#datepicker").datepicker();
 
-  $("#datepicker").datepicker("setDate", "today"); //(
+  $("#datepicker").datepicker("setDate", "today");
 });
+
 $(function () {
   $(".time1").timepicker({
     timeFormat: "HH:mm",
@@ -70,10 +71,24 @@ $(function () {
     interval: 60,
     minTime: "1",
     maxTime: "23:00",
-    defaultTime: "9",
+    defaultTime: "18",
     startTime: "01:00",
     dynamic: false,
     dropdown: true,
     scrollbar: true,
   });
 });
+
+function onClick() {
+  const requiredFirst = document.getElementById("required-input-1").value;
+  const requiredSecond = document.getElementById("required-input-2").value;
+  const requiredThird = document.getElementById("required-input-3").value;
+  const requiredFourth = document.getElementById("required-input-4").value;
+  if ((requiredFirst || requiredSecond) && requiredThird && requiredFourth) {
+    $("#form").submit();
+    alert("저장되었습니다!");
+    location.href = "list.html";
+  } else {
+    alert("필수 입력사항을 입력해 주세요!");
+  }
+}

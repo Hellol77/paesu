@@ -3,6 +3,7 @@
   width: 80vw;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .content {
@@ -11,22 +12,42 @@
   align-items: center;
 }
 
-#year,
-#month,
+.datepicker {
+  max-width: 285px;
+  min-width: 50px;
+  width: 70%;
+  margin: 10px;
+  padding: 5px;
+}
+
 #initial-select,
 #filtered-select {
-  width: 30vw;
+  max-width: 300px;
+  min-width: 50px;
+  width: 80%;
   padding: 5px;
   font-size: 14px;
-  margin: 10px;
+  margin: 5px;
 }
 
 .date {
-  margin-top: 10px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: 80vw;
+  margin-top: 20px;
+}
+
+.filter {
+  display: grid;
+  justify-items: center;
+  width: 80vw;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 5px;
 }
 
 table {
-  width: 100%;
+  width: 80vw;
   border-collapse: collapse;
   border: 1px solid #dddada;
   margin-top: 10px;
@@ -72,4 +93,4 @@ button {
   margin-bottom: 30px;
 }
 
-/*# sourceMappingURL=list.css.map */
+/*# sourceMappingURL=listAdmin.css.map */
