@@ -127,3 +127,10 @@ select1.addEventListener("change", () => {
     }
   }
 });
+
+document.getElementById("month").addEventListener("click", (e) => {
+  e.preventDefault;
+});
+document.getElementById("year").addEventListener("click", (e) => {
+  e.preventDefault;
+});
