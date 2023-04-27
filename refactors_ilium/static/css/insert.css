@@ -132,13 +132,13 @@ td {
 }
 
 .usage {
-  color: red;
-  font-weight: bold;
+  width: 20%;
 }
 
 .readOnly {
   border: none;
   text-align: center;
+  width: 80%;
 }
 
 /*# sourceMappingURL=insert.css.map */

@@ -46,7 +46,7 @@
         <i class="fas fa-bars"></i>
       </a>
     </nav>
-    <form action="" onsubmit="return false;">
+    <form action="" id="form" onsubmit="return false;">
       <div class="content">
         <ul class="content__box">
           <li>1. 작성일자</li>
@@ -73,6 +73,7 @@
               </tr>
             </tbody>
           </table>
+
           <li>2. 사용량과 배출량(필수)</li>
           <table>
             <thead>
@@ -87,7 +88,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="text" value="0" class="readOnly" readonly /></td>
+                <td><input type="text" class="readOnly" readonly /></td>
                 <td><input id="1" type="text" class="readOnly" readonly /></td>
                 <td>
                   <input
@@ -106,19 +107,22 @@
               </tr>
               <tr>
                 <th>전일</th>
-                <th>사용량</th>
+                <th class="usage">사용량</th>
                 <th>금일</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><input type="text" class="readOnly" readonly /></td>
-                <td><input id="2" type="text" class="readOnly" readonly /></td>
+                <td>
+                  <input id="2" type="text" class="readOnly" readonly />
+                </td>
                 <td>
                   <input
                     class="text-input"
+                    id="required-input-2"
                     type="number"
-                    onchange="onChange(this.value,0,2)"
+                    oninput="onChange(this.value,0,2)"
                   />
                 </td>
               </tr>
@@ -127,14 +131,11 @@
           <table>
             <thead>
               <tr>
-                <th colspan="3">
-                  폐수배출량(㎥) <span class="usage">사용 유무</span>
-                  <input name="rest" type="checkbox" />
-                </th>
+                <th colspan="3">폐수배출량(㎥)</th>
               </tr>
               <tr>
                 <th>전일</th>
-                <th>사용량</th>
+                <th class="usage">사용량</th>
                 <th>금일</th>
               </tr>
             </thead>
@@ -145,8 +146,9 @@
                 <td>
                   <input
                     class="text-input"
+                    id="required-input-3"
                     type="number"
-                    onchange="onChange(this.value,0,3)"
+                    oninput="onChange(this.value,0,3)"
                   />
                 </td>
               </tr>
@@ -160,7 +162,7 @@
               </tr>
               <tr>
                 <th>전일</th>
-                <th>사용량</th>
+                <th class="usage">사용량</th>
                 <th>금일</th>
               </tr>
             </thead>
@@ -171,13 +173,21 @@
                 <td>
                   <input
                     class="text-input"
+                    id="required-input-4"
                     type="number"
-                    onchange="onChange(this.value,0,4)"
+                    oninput="onChange(this.value,0,4)"
                   />
                 </td>
               </tr>
             </tbody>
           </table>
+
+          <li>
+            4. 추가사항(선택) <input type="checkbox" class="select__button" />
+          </li>
+        </ul>
+        <ul class="select__content">
+          <div class="additional__title">전력 사용량(선택)</div>
           <table>
             <thead>
               <tr>
@@ -202,11 +212,6 @@
               <td><input type="text" class="text-input" /></td>
             </tr>
           </table>
-          <li>
-            4. 추가사항(선택) <input type="checkbox" class="select__button" />
-          </li>
-        </ul>
-        <ul class="select__content">
           <div class="additional__title">폐수발생량, 재사용량</div>
           <table>
             <thead>
@@ -447,10 +452,11 @@
           <div class="additional__title">지도 또는 점검 받은 사항(선택)</div>
           <input type="text" class="long" />
         </ul>
-        <button type="submit" class="submit__button">저장</button>
+        <button class="submit__button" id="submit" onclick="onClick()">
+          저장
+        </button>
       </div>
     </form>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
       integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
