@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+  {% load static %}
 
   <head>
     <meta charset="UTF-8" />
@@ -18,12 +18,15 @@
     />
     <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/changeInfo.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/changeInfo.css' %}" />
   </head>
   <body>
     <nav>
       <div class="navbar__title-box">
-        <img src="{% static 'image/pample_logo_symbol.png' %}" class="navbar__icon" />
+        <img
+          src="{% static 'image/pample_logo_symbol.png' %}"
+          class="navbar__icon"
+        />
         <div class="navbar__title">
           <a href="/insert/today">폐수시설 운영일지</a>
         </div>
@@ -44,11 +47,14 @@
           <table>
             <tr>
               <th>아이디</th>
-              <td><input
-                    type="text"
-                    name="user_id"
-                    value="{{ user_info.user_id }}"
-                    disabled /></td>
+              <td>
+                <input
+                  type="text"
+                  name="user_id"
+                  value="{{ user_info.user_id }}"
+                  disabled
+                />
+              </td>
             </tr>
           </table>
           <!-- <table>
@@ -70,52 +76,59 @@
           <table>
             <tr>
               <th>휴대폰 번호</th>
-              <td><input
-                    type="text"
-                    name="hp"
-                    value="{{ user_info.hp }}" /></td>
+              <td>
+                <input type="text" name="hp" value="{{ user_info.hp }}" />
+              </td>
             </tr>
           </table>
           <table>
             <tr>
               <th>이메일</th>
-              <td><input
-                    type="text"
-                    name="email"
-                    value="{{ user_info.email }}" /></td>
+              <td>
+                <input type="text" name="email" value="{{ user_info.email }}" />
+              </td>
             </tr>
           </table>
           <table>
             <tr>
               <th>사업자상호</th>
-              <td><input
-                    type="text"
-                    name="business_name"
-                    value="{{ user_info.business_name }}" /></td>
+              <td>
+                <input
+                  type="text"
+                  name="business_name"
+                  value="{{ user_info.business_name }}"
+                />
+              </td>
             </tr>
           </table>
           <table>
             <tr>
               <th>사업자주소</th>
-              <td><input
-                    type="text"
-                    name="business_add"
-                    value="{{ user_info.business_add }}" /></td>
+              <td>
+                <input
+                  type="text"
+                  name="business_add"
+                  value="{{ user_info.business_add }}"
+                />
+              </td>
             </tr>
           </table>
           <table>
             <tr>
               <th>사업자등록번호</th>
-              <td><input
-                    type="text"
-                    name="business_regnum"
-                    value="{{ user_info.business_regnum }}" /></td>
+              <td>
+                <input
+                  type="text"
+                  name="business_regnum"
+                  value="{{ user_info.business_regnum }}"
+                />
+              </td>
             </tr>
           </table>
           <button type="submit" class="submit__button">저장</button>
         </div>
       </form>
     </div>
-    <script src="{% static 'nav.js' %}"></script>
+    <script src="{% static 'js/nav.js' %}"></script>
   </body>
 </html>

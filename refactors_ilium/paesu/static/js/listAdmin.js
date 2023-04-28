@@ -51,11 +51,12 @@ $.datepicker.setDefaults({
   yearSuffix: "년",
 });
 $(function () {
-  $(".datepicker").datepicker();
-
-  $(".datepicker__from").datepicker("setDate", paramStart || "today"); //(
-  $(".datepicker__until").datepicker("setDate", paramEnd || "today"); //(
-
+  $("#datepicker__from").datepicker();
+  $("#datepicker__from").datepicker("setDate", paramStart || "today");
+  $("#datepicker__until").datepicker({
+    minDate: new Date($("#datepicker__from").val()),
+  });
+  $("#datepicker__until").datepicker("setDate", paramEnd || "today");
 });
 
 var initialSounds = [
