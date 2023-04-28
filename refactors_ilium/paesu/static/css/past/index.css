@@ -8,10 +8,10 @@
   max-width: 600px;
   background-color: #6cbcca;
   color: white;
-  margin-top: 250px;
+  height: 320px;
+  margin-top: 300px;
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  padding-bottom: 15px;
 }
 .login_box .login_title {
   font-weight: bold;
@@ -61,11 +61,6 @@ a {
   text-decoration: none;
   color: white;
   margin-left: 30px;
-}
-
-.login_fail {
-  color: rgb(227, 93, 93);
-  margin-top: 25px;
 }
 
 /*# sourceMappingURL=index.css.map */

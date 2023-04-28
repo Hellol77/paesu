@@ -36,7 +36,7 @@
       <div class="navbar__title-box">
         <img src="{% static 'image/pample_logo_symbol.png' %}" class="navbar__icon" />
         <div class="navbar__title">
-          <a href="/insert">폐수시설 운영일지</a>
+          <a href="/insert/today">폐수시설 운영일지</a>
         </div>
       </div>
       <ul class="navbar__menu">
@@ -86,7 +86,7 @@
               </tr>
               <tr>
                 <th>전일</th>
-                <th>사용량</th>
+                <th class="usage">사용량</th>
                 <th>금일</th>
               </tr>
             </thead>
@@ -113,14 +113,14 @@
               </tr>
               <tr> 
                 <th>전일</th>
-                <th>사용량</th>
+                <th class="usage">사용량</th>
                 <th>금일</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><input type="text" name="underwater_prevd" value="{{underwater_prevd}}" class="readOnly" readonly /></td>
-                <td><input id="2" type="text" name="underwater_used" value="{{psrecord.underwater_prevd}}" class="readOnly" readonly /></td>
+                <td><input id="2" type="text" name="underwater_used" value="{{psrecord.underwater_used}}" class="readOnly" readonly /></td>
                 <td>
                   <input
                     name="underwater_today"
@@ -137,13 +137,14 @@
             <thead>
               <tr>
                 <th colspan="3">
-                  폐수배출량(㎥) <span class="usage">사용 유무</span>
-                  <input name="rest" type="checkbox" {% if psrecord.diswaste_ck == 'on' %} checked {% else %}{% endif %} />
+                  폐수배출량(㎥)
+                  <!-- <span class="usage">사용 유무</span>
+                  <input name="rest" type="checkbox" {% if psrecord.diswaste_ck == 'on' %} checked {% else %}{% endif %} /> -->
                 </th>
               </tr>
               <tr>
                 <th>전일</th>
-                <th>사용량</th>
+                <th class="usage">사용량</th>
                 <th>금일</th>
               </tr>
             </thead>
@@ -171,7 +172,7 @@
               </tr>
               <tr>
                 <th>전일</th>
-                <th>사용량</th>
+                <th class="usage">사용량</th>
                 <th>금일</th>
               </tr>
             </thead>
@@ -191,6 +192,13 @@
               </tr>
             </tbody>
           </table>
+
+          <li>
+            4. 추가사항(선택) <input type="checkbox" class="select__button" />
+          </li>
+        </ul>
+        <ul class="select__content">
+          <div class="additional__title">전력 사용량(선택)</div>
           <table>
             <thead>
               <tr>
@@ -215,11 +223,6 @@
               <td><input type="text" name ="poweruse_etc" class="text-input" value="{{psrecord.poweruse_etc}}"/></td>
             </tr>
           </table>
-          <li>
-            4. 추가사항(선택) <input type="checkbox" class="select__button" />
-          </li>
-        </ul>
-        <ul class="select__content">
           <div class="additional__title">폐수발생량, 재사용량</div>
           <table>
             <thead>

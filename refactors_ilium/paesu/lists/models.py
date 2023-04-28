@@ -26,8 +26,6 @@ class Paesu_Record(models.Model):
     diswaste_prevd = models.CharField(max_length=10, verbose_name="폐수배출량 전일", null=True, blank=True)   
     diswaste_used = models.CharField(max_length=10, verbose_name="폐수배출량 사용량", null=True, blank=True)
     diswaste_today = models.CharField(max_length=10, verbose_name="폐수배출량 금일", null=True, blank=True) 
-    diswaste_ck = models.CharField(max_length=4, verbose_name="폐수배출량 사용유무", null=True, blank=True)
-
 
     # 3. 전력 사용량(필수)
     poweruse_prevd = models.CharField(max_length=10, verbose_name="전산전력계지침 전일", null=True, blank=True)
