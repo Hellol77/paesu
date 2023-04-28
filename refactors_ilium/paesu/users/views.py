@@ -17,9 +17,6 @@ def ChageInfo(request):
 
     if request.method == 'POST':
 
-        print(request.POST)
-
-        password = request.POST['password']
         hp = request.POST['hp']
         email = request.POST['email']
         business_name = request.POST['business_name']
@@ -42,10 +39,12 @@ def ChageInfo(request):
 
         user.save(update_fields=update_field)
 
-        if password != '':
-            user.set_password(password)
-            user.save()
-            update_session_auth_hash(request, request.user)
+        # password 수정 삭제
+        # password = request.POST['password']
+        # if password != '':
+        #     user.set_password(password)
+        #     user.save()
+        #     update_session_auth_hash(request, request.user)
 
 
         return redirect('/changeInfo')

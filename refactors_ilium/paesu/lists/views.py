@@ -1,26 +1,113 @@
+import json
 import calendar
 import datetime
 
+from users.models import User
 from .models import Paesu_Record
 from django.shortcuts import render, redirect
 
 
 def ListView(request):
+
     if request.user.is_authenticated:
-        if request.method == 'GET':
 
-            days_in_month = calendar.monthrange(int(request.GET['year']), int(request.GET['month']))[1]
-            days_query = set()
+        try:
+            year = int(request.GET['year'])
+            month = int(request.GET['month'])
+        except:
+            today = datetime.datetime.today()
+            year = today.year
+            month = today.month
 
-            for i in range(days_in_month):
-                days_query.add(i)
-            
-            print(days_query)
+        if request.user.level == '2':
+            start_date = datetime.datetime(year, month, 1)
+            days_in_month = 31 if month == 12 else (datetime.datetime(year, month+1, 1) - datetime.datetime(year, month, 1)).days
+            date_list = [start_date + datetime.timedelta(days=x) for x in range(days_in_month)]
+            date_str_list = [d.strftime("%Y-%m-%d") for d in date_list]
 
-            return render(request, 'lists/list.html')
+            result = []
+            for i in date_str_list:
+                try:
+                    psrecord = Paesu_Record.objects.filter(user_id = request.user).get(date = i)
+                    result.append([i,psrecord.diswaste_today,psrecord.diswaste_used,'입력완료'])
+                except:
+                    result.append([i,'','','입력필요'])
+
+            context = {"list" : result}
+
+            return render(request, 'lists/list.html', context)
         
+        else:
+            try:
+                start_date = datetime.datetime.strptime(request.GET['start'], "%Y-%m-%d")
+                end_date = datetime.datetime.strptime(request.GET['end'], "%Y-%m-%d")
+                date_list = []
+                delta = datetime.timedelta(days=1)
+                while start_date <= end_date:
+                    date_list.append(start_date.date())
+                    start_date += delta
+                date_str_list = [d.strftime("%Y-%m-%d") for d in date_list]
 
-        return render(request, 'lists/list.html')
+                selected= request.GET['filtered-select']
+
+                result = []
+                for i in date_str_list:
+                    try:
+                        psrecord = Paesu_Record.objects.filter(user_id = User.objects.get(business_name = selected)).get(date = i)
+                        result.append([i,psrecord.diswaste_today,psrecord.diswaste_used,'입력완료'])
+                    except:
+                        result.append([i,'','','입력필요'])
+
+                if request.user.level == '1':
+                    all_list = User.objects.filter(level = 2, region = request.user.region)
+                    my_list = [usr.business_name for usr in all_list]
+                    context = {
+                        "corp" : json.dumps(my_list),
+                        "list" : result,
+                        "start_date" : request.GET['start'],
+                        "end_date" : request.GET['end'],
+                        "selected_corp" : selected,
+                    }
+                
+                    return render(request, 'lists/list.html', context)
+                
+                elif request.user.level == '0':
+
+                    all_list = User.objects.filter(level = 2)
+                    my_list = [usr.business_name for usr in all_list]
+
+                    context = {
+                        "corp" : json.dumps(my_list),
+                        "list" : result,
+                        "start_date" : request.GET['start'],
+                        "end_date" : request.GET['end'],
+                        "selected_corp" : selected,
+                    }
+
+                    return render(request, 'lists/list.html', context)
+
+            except:
+
+                if request.user.level == '1':
+                    all_list = User.objects.filter(level = 2, region = request.user.region)
+                    my_list = [usr.business_name for usr in all_list]
+                    context = {
+                        "corp" : json.dumps(my_list)
+                    }
+                
+                    return render(request, 'lists/list.html', context)
+                
+                elif request.user.level == '0':
+
+                    all_list = User.objects.filter(level = 2)
+                    my_list = [usr.business_name for usr in all_list]
+
+                    context = {
+                        "corp" : json.dumps(my_list)
+                    }
+
+                    return render(request, 'lists/list.html', context)
+
     else:
         return redirect('/')
     
@@ -43,10 +130,6 @@ def InsertData(request, date):
             if record.get('rest'):
                 rest = record['rest']
 
-            diswaste_ck = 'off'
-            if record.get('diswaste_ck'):
-                diswaste_ck = record['rediswaste_ckst']
-
             updated_values = {
                 'date_ck' : rest,
                 'date_weather' : record.get('weather'),
@@ -63,7 +146,6 @@ def InsertData(request, date):
                 'diswaste_prevd' : record.get('diswaste_prevd'),
                 'diswaste_used' : record.get('diswaste_used'),
                 'diswaste_today' : record.get('diswaste_today'),
-                'diswaste_ck' : diswaste_ck,
 
                 'poweruse_prevd' : record.get('poweruse_prevd'),
                 'poweruse_used' : record.get('poweruse_used'),
