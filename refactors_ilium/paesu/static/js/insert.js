@@ -77,3 +77,18 @@ $(function () {
     scrollbar: true,
   });
 });
+
+function onCheck() {
+  const requiredFirst = document.getElementById("required-input-1").value;
+  const requiredSecond = document.getElementById("required-input-2").value;
+  const requiredThird = document.getElementById("required-input-3").value;
+  const requiredFourth = document.getElementById("required-input-4").value;
+  if ((requiredFirst || requiredSecond) && requiredThird && requiredFourth) {
+    alert("저장되었습니다!");
+    return true;
+  } else {
+    alert("필수 입력사항을 입력해 주세요!");
+    return false;
+  }
+}
+

@@ -34,14 +34,14 @@
       <ul class="navbar__menu">
         <li><a href="/insert/today">폐수일지 입력</a></li>
         <li><a href="/list">폐수일지 리스트</a></li>
-        <li><a href="/chageInfo">사용자정보 변경</a></li>
+        <li><a href="/changeInfo">사용자정보 변경</a></li>
       </ul>
       <a href="#" class="navbar__toogleBtn">
         <i class="fas fa-bars"></i>
       </a>
     </nav>
     <div class="content">
-      <form method="post" action=".">
+      <form method="post" onsubmit="return onCheck();" action=".">
         {% csrf_token %}
         <div class="content__box">
           <table>
@@ -85,7 +85,12 @@
             <tr>
               <th>이메일</th>
               <td>
-                <input type="text" name="email" value="{{ user_info.email }}" />
+                <input
+                  type="text"
+                  id="required-input-1"
+                  name="email"
+                  value="{{ user_info.email }}"
+                />
               </td>
             </tr>
           </table>
@@ -95,6 +100,7 @@
               <td>
                 <input
                   type="text"
+                  id="required-input-2"
                   name="business_name"
                   value="{{ user_info.business_name }}"
                 />
@@ -130,5 +136,6 @@
       </form>
     </div>
     <script src="{% static 'js/nav.js' %}"></script>
+    <script src="{% static 'js/changeInfo.js' %}"></script>
   </body>
 </html>
