@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
-  {% if user.level == '2'%}
+  {% load static %} {% if user.level == '2'%}
 
   <head>
     <meta charset="UTF-8" />
@@ -25,7 +24,10 @@
   <body>
     <nav>
       <div class="navbar__title-box">
-        <img src="{% static 'image/pample_logo_symbol.png' %}"class="navbar__icon" />
+        <img
+          src="{% static 'image/pample_logo_symbol.png' %}"
+          class="navbar__icon"
+        />
         <div class="navbar__title">
           <a href="/insert/today">폐수시설 운영일지</a>
         </div>
@@ -34,6 +36,7 @@
         <li><a href="/insert/today">폐수일지 입력</a></li>
         <li><a href="/list">폐수일지 리스트</a></li>
         <li><a href="/changeInfo">사용자정보 변경</a></li>
+        <li><a href="/logout">로그아웃</a></li>
       </ul>
       <a href="#" class="navbar__toogleBtn">
         <i class="fas fa-bars"></i>
@@ -47,7 +50,11 @@
           <select id="year" name="year" onchange="this.form.submit()">
             <option value=""></option>
           </select>
-          <select id="month" name="month" onchange="this.form.submit()"></select>
+          <select
+            id="month"
+            name="month"
+            onchange="this.form.submit()"
+          ></select>
         </div>
         <!-- <div>
           <select name="initial-select" id="initial-select"></select>
@@ -70,10 +77,14 @@
             <td>{{used}}</td>
             <td>
               {% if status == "입력필요" %}
-              <span class="necessary" onclick="location.href='/insert/{{date}}'" >{{status}}</span>
+              <span class="necessary" onclick="location.href='/insert/{{date}}'"
+                >{{status}}</span
+              >
               {% else %}
-              <span class="complete" onclick="location.href='/insert/{{date}}'" >{{status}}</span>
-              {%  endif %}
+              <span class="complete" onclick="location.href='/insert/{{date}}'"
+                >{{status}}</span
+              >
+              {% endif %}
             </td>
             <td><button>다운로드</button></td>
           </tr>
@@ -118,7 +129,10 @@
   <body>
     <nav>
       <div class="navbar__title-box">
-        <img src="{% static 'image/pample_logo_symbol.png' %}"class="navbar__icon" />
+        <img
+          src="{% static 'image/pample_logo_symbol.png' %}"
+          class="navbar__icon"
+        />
         <div class="navbar__title">
           <a href="/insert/today">폐수시설 운영일지</a>
         </div>
@@ -127,6 +141,7 @@
         <li><a href="/insert/today">폐수일지 입력</a></li>
         <li><a href="/list">폐수일지 리스트</a></li>
         <li><a href="/changeInfo">사용자정보 변경</a></li>
+        <li><a href="/logout">로그아웃</a></li>
       </ul>
       <a href="#" class="navbar__toogleBtn">
         <i class="fas fa-bars"></i>
@@ -136,12 +151,29 @@
       <div class="content__box">
         <form method="get" action=".">
           <div class="date">
-            <input name="start" class="datepicker" onchange="this.form.submit()" value="{{start_date}}"/>
-            <input name="end" class="datepicker" onchange="this.form.submit()" value="{{end_date}}"/>
+            <input
+              name="start"
+              class="datepicker"
+              id="datepicker__from"
+              onchange="this.form.submit()"
+              value="{{start_date}}"
+            />
+            <input
+              name="end"
+              class="datepicker"
+              id="datepicker__until"
+              onchange="this.form.submit()"
+              value="{{end_date}}"
+            />
           </div>
           <div class="filter">
             <select name="initial-select" id="initial-select"></select>
-            <select name="filtered-select" id="filtered-select" onchange="this.form.submit()" value="{{selected_corp}}"></select>
+            <select
+              name="filtered-select"
+              id="filtered-select"
+              onchange="this.form.submit()"
+              value="{{selected_corp}}"
+            ></select>
           </div>
         </form>
         <div class="content__box">
@@ -160,10 +192,18 @@
               <td>{{used}}</td>
               <td>
                 {% if status == "입력필요" %}
-                <span class="necessary" onclick="location.href='/insert/{{date}}'" >{{status}}</span>
+                <span
+                  class="necessary"
+                  onclick="location.href='/insert/{{date}}'"
+                  >{{status}}</span
+                >
                 {% else %}
-                <span class="complete" onclick="location.href='/insert/{{date}}'" >{{status}}</span>
-                {%  endif %}
+                <span
+                  class="complete"
+                  onclick="location.href='/insert/{{date}}'"
+                  >{{status}}</span
+                >
+                {% endif %}
               </td>
               <td><button>다운로드</button></td>
             </tr>
@@ -200,6 +240,5 @@
     <script src="{% static 'js/nav.js' %}"></script>
   </body>
 
-  {% endif %} 
-
+  {% endif %}
 </html>
